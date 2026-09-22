@@ -1,0 +1,313 @@
+import { FlashcardItem } from "@/lib/types";
+
+export const flashcards: FlashcardItem[] = [
+  // --- HỆ ĐẾM & BIỂU DIỄN THÔNG TIN ---
+  {
+    id: "fc-he-dem-01",
+    category: "formula",
+    front: "Công thức giá trị biểu diễn số trong hệ cơ số r bất kỳ?",
+    back: "N = Σ (aᵢ × rⁱ)\n\nTrong đó aᵢ là ký số tại vị trí i, r là cơ số (2, 8, 10, 16). Phần nguyên i ≥ 0, phần lẻ i < 0.",
+    lessonSlug: "he-dem",
+    tip: "Nhớ quy tắc: Nguyên chia lấy dư ngược lên, lẻ nhân lấy nguyên xuôi xuống.",
+  },
+  {
+    id: "fc-he-dem-02",
+    category: "formula",
+    front: "Cách tìm số bù 2 của một số nhị phân n bit?",
+    back: "Bù 2 = Bù 1 + 1\n(Đảo toàn bộ các bit 0 thành 1, 1 thành 0 rồi cộng thêm 1).\n\nMẹo nhanh: Giữ nguyên các bit từ phải qua trái cho đến bit 1 đầu tiên, sau đó đảo toàn bộ các bit còn lại phía trước.",
+    lessonSlug: "he-dem",
+    tip: "Áp dụng mẹo quét từ LSB sang MSB sẽ làm bài thi nhanh gấp 3 lần.",
+  },
+  {
+    id: "fc-he-dem-03",
+    category: "concept",
+    front: "Phạm vi biểu diễn của số nguyên có dấu n-bit dạng bù 2?",
+    back: "Từ -(2ⁿ⁻¹) đến +(2ⁿ⁻¹ - 1)\n\nVí dụ với 8 bit: từ -128 đến +127. Số âm có bit dấu MSB = 1.",
+    lessonSlug: "he-dem",
+    tip: "Dạng bù 2 chỉ có một số 0 duy nhất (0000 0000), không bị lãng phí như dạng bit dấu.",
+  },
+  {
+    id: "fc-he-dem-04",
+    category: "concept",
+    front: "Đặc điểm nhận dạng cốt lõi của Mã Gray (Gray Code)?",
+    back: "Hai giá trị số liên tiếp nhau chỉ khác nhau đúng 1 bit duy nhất.\n\nỨng dụng: Giảm nhiễu chuyển mạch trong bìa Karnaugh, encoder quang học và đồng bộ clock domain chéo.",
+    lessonSlug: "he-dem",
+    tip: "Thứ tự mã Gray 2-bit bắt buộc: 00 -> 01 -> 11 -> 10.",
+  },
+
+  // --- ĐẠI SỐ BOOLE & CỔNG LOGIC ---
+  {
+    id: "fc-boole-01",
+    category: "formula",
+    front: "Phát biểu 2 định luật DeMorgan cốt lõi trong Đại số Boole?",
+    back: "1. (A · B)' = A' + B' (Phủ định của tích bằng tổng các phủ định)\n2. (A + B)' = A' · B' (Phủ định của tổng bằng tích các phủ định)",
+    lessonSlug: "dai-so-boole",
+    tip: "Bẻ gãy thanh phủ định phía trên và đổi dấu phép toán (AND thành OR, OR thành AND).",
+  },
+  {
+    id: "fc-boole-02",
+    category: "formula",
+    front: "Biểu thức đại số và bảng chân trị của cổng XOR (Exclusive-OR)?",
+    back: "Y = A ⊕ B = A'B + AB'\n\nNgõ ra Y = 1 khi hai ngõ vào khác nhau (một bit 0, một bit 1).\nNgõ ra Y = 0 khi hai ngõ vào giống nhau.",
+    lessonSlug: "dai-so-boole",
+    tip: "XOR là bộ dò bit lẻ (odd detector): số lượng bit 1 là lẻ thì ngõ ra bằng 1.",
+  },
+  {
+    id: "fc-boole-03",
+    category: "concept",
+    front: "Tại sao cổng NAND và NOR được gọi là cổng logic vạn năng (Universal Gates)?",
+    back: "Vì chỉ cần dùng duy nhất một loại cổng NAND (hoặc NOR), ta có thể tổng hợp được tất cả các hàm logic cơ bản khác: NOT, AND, OR, XOR, XNOR.",
+    lessonSlug: "dai-so-boole",
+    tip: "Nối chung hai ngõ vào NAND lại với nhau ta sẽ thu được cổng NOT.",
+  },
+  {
+    id: "fc-boole-04",
+    category: "trap",
+    front: "Bẫy thứ tự ưu tiên các phép toán Boole khi không có dấu ngoặc đơn?",
+    back: "Thứ tự chuẩn từ cao xuống thấp:\n1. NOT (Đảo ')\n2. AND (Tích ·)\n3. XOR / XNOR\n4. OR (Tổng +)\n\nSai lầm thường gặp: Tính OR trước AND.",
+    lessonSlug: "dai-so-boole",
+    tip: "Luôn nhớ: AND có độ ưu tiên cao hơn OR (như nhân trước cộng).",
+  },
+
+  // --- BÌA KARNAUGH & DẠNG CHUẨN TẮC ---
+  {
+    id: "fc-karnaugh-01",
+    category: "concept",
+    front: "Phân biệt dạng chuẩn tắc SOP (Sum of Products) và POS (Product of Sums)?",
+    back: "- SOP: Tổng các tích (minterm Σm), gom các ô giá trị 1 trên bảng chân trị hoặc bìa K-map.\n- POS: Tích các tổng (maxterm ΠM), gom các ô giá trị 0.",
+    lessonSlug: "karnaugh",
+    tip: "SOP nối với cổng AND-OR, POS nối với cổng OR-AND.",
+  },
+  {
+    id: "fc-karnaugh-02",
+    category: "formula",
+    front: "Quy tắc gom nhóm hợp lệ trên bìa Karnaugh (K-map)?",
+    back: "1. Số ô gom phải là lũy thừa của 2: 1, 2, 4, 8, 16 ô.\n2. Các ô phải kề nhau về mặt hình học hoặc đối xứng qua mép/4 góc bìa.\n3. Gom nhóm càng lớn càng tốt để triệt tiêu được nhiều biến nhất (nhóm 2ᵏ ô triệt tiêu k biến).",
+    lessonSlug: "karnaugh",
+    tip: "Tuyệt đối không gom nhóm 3 ô, 5 ô, 6 ô hoặc gom theo đường chéo.",
+  },
+  {
+    id: "fc-karnaugh-03",
+    category: "trap",
+    front: "Cách xử lý điều kiện tùy định (Don't Care - ký hiệu X) khi tối giản K-map?",
+    back: "- Chỉ gom ô 'X' khi nó giúp mở rộng nhóm ô 1 thành nhóm lớn hơn (ví dụ từ 2 ô thành 4 ô).\n- Không bắt buộc phải gom hết tất cả các ô 'X'. Ô 'X' đứng lẻ loi thì coi như bằng 0 và bỏ qua.",
+    lessonSlug: "karnaugh",
+    tip: "Gom thừa ô X không làm tăng kích thước nhóm sẽ làm mạch tốn thêm cổng thừa.",
+  },
+
+  // --- MẠCH LOGIC TỔ HỢP ---
+  {
+    id: "fc-to-hop-01",
+    category: "formula",
+    front: "Mối quan hệ giữa số ngõ vào dữ liệu và số đường chọn của bộ MUX 2ⁿ : 1?",
+    back: "Số đường chọn (select bits) = n.\n\nVí dụ:\n- MUX 2:1 cần 1 đường chọn.\n- MUX 4:1 cần 2 đường chọn (S₁, S₀).\n- MUX 8:1 cần 3 đường chọn (S₂, S₁, S₀).",
+    lessonSlug: "mach-to-hop",
+    tip: "Công thức: 2^(số đường chọn) = số ngõ vào dữ liệu.",
+  },
+  {
+    id: "fc-to-hop-02",
+    category: "concept",
+    front: "Khái niệm Active-High và Active-Low khác nhau như thế nào trong mạch số?",
+    back: "- Active-High: Tín hiệu tác động tích cực khi ở mức điện áp cao (Logic 1).\n- Active-Low: Tín hiệu tác động tích cực khi ở mức điện áp thấp (Logic 0, thường ký hiệu có gạch trên đầu hoặc dấu chấm tròn đảo ở chân IC).",
+    lessonSlug: "mach-to-hop",
+    tip: "Ví dụ: Chân Enable tích cực mức thấp EN_L nghĩa là cấp 0 thì IC mới hoạt động, cấp 1 thì IC bị vô hiệu hóa.",
+  },
+  {
+    id: "fc-to-hop-03",
+    category: "concept",
+    front: "Bộ mã hóa ưu tiên (Priority Encoder) giải quyết vấn đề gì so với Encoder thông thường?",
+    back: "Nếu có nhiều hơn một ngõ vào cùng tích cực đồng thời, Priority Encoder sẽ chỉ lấy mã của ngõ vào có thứ tự ưu tiên cao nhất (thường là bit có chỉ số lớn nhất), tránh gây xung đột đầu ra.",
+    lessonSlug: "mach-to-hop",
+    tip: "Ví dụ IC 74148 là bộ mã hóa ưu tiên 8 sang 3 đường.",
+  },
+
+  // --- MẠCH SỐ HỌC ---
+  {
+    id: "fc-so-hoc-01",
+    category: "formula",
+    front: "Công thức tính Tổng (Sum) và Số nhớ (Carry) của bộ Nửa cộng (Half Adder)?",
+    back: "S = A ⊕ B\nC = A · B\n\nHalf Adder chỉ cộng 2 bit A và B, không có ngõ vào số nhớ từ tầng trước đưa sang.",
+    lessonSlug: "mach-so-hoc",
+    tip: "Sum dùng cổng XOR, Carry dùng cổng AND.",
+  },
+  {
+    id: "fc-so-hoc-02",
+    category: "formula",
+    front: "Công thức tính của bộ Cộng toàn phần (Full Adder)?",
+    back: "S = A ⊕ B ⊕ Cin\nCout = (A ⊕ B) · Cin + A · B = AB + Cin(A + B)\n\nMột bộ Full Adder có thể được ghép từ 2 bộ Half Adder và 1 cổng OR.",
+    lessonSlug: "mach-so-hoc",
+    tip: "Full Adder có thêm Cin (Carry-in) từ tầng dưới mang lên.",
+  },
+  {
+    id: "fc-so-hoc-03",
+    category: "concept",
+    front: "Nguyên lý so sánh hai số nhị phân A và B trong mạch so sánh số học (Comparator)?",
+    back: "So sánh tuần tự từng cặp bit bắt đầu từ bit có trọng số lớn nhất (MSB) đi dần xuống LSB:\n- Cặp bit nào khác nhau đầu tiên sẽ quyết định kết quả ngay lập tức (Aᵢ > Bᵢ => A > B).\n- Nếu tất cả các cặp bit đều giống nhau (Aᵢ ⊙ Bᵢ = 1) thì A = B.",
+    lessonSlug: "mach-so-hoc",
+    tip: "Cổng XNOR (⊙) được dùng để so sánh 2 bit bằng nhau.",
+  },
+
+  // --- MẠCH TUẦN TỰ & FLIP-FLOP ---
+  {
+    id: "fc-tuan-tu-01",
+    category: "concept",
+    front: "Khác biệt bản chất giữa Mạch tổ hợp và Mạch tuần tự?",
+    back: "- Mạch tổ hợp: Ngõ ra Y chỉ phụ thuộc duy nhất vào tổ hợp ngõ vào X tại thời điểm hiện tại: Y = f(X). Không có phần tử nhớ.\n- Mạch tuần tự: Ngõ ra phụ thuộc vào cả ngõ vào hiện tại VÀ trạng thái quá khứ đã lưu: Y = f(X, State). Có phần tử nhớ (Flip-Flop) và tín hiệu hồi tiếp.",
+    lessonSlug: "mach-tuan-tu",
+    tip: "Mạch tuần tự cần xung nhịp Clock để đồng bộ bước chuyển trạng thái.",
+  },
+  {
+    id: "fc-tuan-tu-02",
+    category: "formula",
+    front: "Phương trình đặc trưng của D Flip-Flop và T Flip-Flop?",
+    back: "- D Flip-Flop: Q(next) = D (Ngõ ra kế tiếp sao chép dữ liệu ngõ vào D khi có cạnh xung clock).\n- T Flip-Flop: Q(next) = T ⊕ Q = T'Q + TQ' (Nếu T = 1 thì đảo trạng thái Q, nếu T = 0 thì giữ nguyên).",
+    lessonSlug: "mach-tuan-tu",
+    tip: "D viết tắt của Data (hoặc Delay), T viết tắt của Toggle (đảo bit).",
+  },
+  {
+    id: "fc-tuan-tu-03",
+    category: "formula",
+    front: "Bảng kích thích của JK Flip-Flop khi chuyển trạng thái?",
+    back: "- Từ 0 -> 0: J = 0, K = X\n- Từ 0 -> 1: J = 1, K = X\n- Từ 1 -> 0: J = X, K = 1\n- Từ 1 -> 1: J = X, K = 0\n\n(X là tùy định - Don't care)",
+    lessonSlug: "mach-tuan-tu",
+    tip: "Quy luật nhớ nhanh cột J: 0, 1, X, X. Cột K: X, X, 1, 0.",
+  },
+  {
+    id: "fc-tuan-tu-04",
+    category: "trap",
+    front: "Ngõ PRE (Preset) và CLR (Clear) của Flip-Flop hoạt động đồng bộ hay không đồng bộ?",
+    back: "Ngõ PRE và CLR thường là ngõ tác động BẤT ĐỒNG BỘ (Asynchronous):\nCó tác dụng ép trạng thái ngõ ra Q lên 1 (PRE) hoặc về 0 (CLR) NGAY LẬP TỨC mà KHÔNG CẦN chờ cạnh xung Clock.",
+    lessonSlug: "mach-tuan-tu",
+    tip: "Thường tác động tích cực mức thấp (active-low): bình thường phải giữ ở mức 1.",
+  },
+
+  // --- BỘ ĐẾM & THANH GHI DỊCH ---
+  {
+    id: "fc-counter-01",
+    category: "formula",
+    front: "Công thức tính số lượng Flip-Flop (n) cần thiết để thiết kế bộ đếm Mod-M?",
+    back: "2ⁿ⁻¹ < M ≤ 2ⁿ\n\nVí dụ: Bộ đếm Mod-10 (đếm từ 0 đến 9) cần n = 4 Flip-Flop (vì 2³ = 8 < 10 ≤ 2⁴ = 16).",
+    lessonSlug: "counter-register",
+    tip: "n Flip-Flop có thể đếm tối đa được 2ⁿ trạng thái.",
+  },
+  {
+    id: "fc-counter-02",
+    category: "concept",
+    front: "So sánh Bộ đếm gợn sóng (Ripple Counter) và Bộ đếm đồng bộ (Synchronous Counter)?",
+    back: "- Ripple (Bất đồng bộ): Xung clock chỉ cấp cho FF đầu tiên, ngõ ra Q của FF trước làm clock cho FF sau. Trễ tích lũy tăng dần theo số FF, dễ sinh xung đột glitch.\n- Đồng bộ: Tất cả các FF cùng chung một đường xung Clock, lật trạng thái đồng thời tại cạnh clock, tốc độ cao và an toàn hơn.",
+    lessonSlug: "counter-register",
+    tip: "Trong thiết kế FPGA/ASIC hiện đại, luôn ưu tiên thiết kế đồng bộ (Synchronous).",
+  },
+  {
+    id: "fc-counter-03",
+    category: "concept",
+    front: "4 phân loại thanh ghi dịch theo cách nạp và xuất dữ liệu?",
+    back: "1. SISO (Serial-In Serial-Out): Vào nối tiếp, ra nối tiếp.\n2. SIPO (Serial-In Parallel-Out): Vào nối tiếp, ra song song.\n3. PISO (Parallel-In Serial-Out): Vào song song, ra nối tiếp.\n4. PIPO (Parallel-In Parallel-Out): Vào song song, ra song song.",
+    lessonSlug: "counter-register",
+    tip: "PIPO có tốc độ truyền nhận nhanh nhất vì nạp và xuất đồng thời toàn bộ các bit.",
+  },
+
+  // --- VERILOG CƠ BẢN ---
+  {
+    id: "fc-verilog-01",
+    category: "concept",
+    front: "Phân biệt bản chất giữa kiểu dữ liệu wire và reg trong Verilog?",
+    back: "- wire: Đại diện cho đường dây nối vật lý thuần túy. Được lái liên tục bởi câu lệnh `assign` hoặc ngõ ra module con. Không giữ trạng thái.\n- reg: Đại diện cho biến nhận giá trị bên trong khối thủ tục `always` hoặc `initial`. Có thể tổng hợp thành dây dẫn hoặc Flip-Flop/Latch tùy thuộc vào logic mô tả.",
+    lessonSlug: "verilog-co-ban",
+    tip: "Ghi nhớ: Bất kỳ biến nào được gán giá trị bên trái dấu = hoặc <= trong always BẮT BUỘC phải khai báo là reg.",
+  },
+  {
+    id: "fc-verilog-02",
+    category: "verilog",
+    front: "Cú pháp hằng số số học chuẩn trong Verilog: <size>'<base><value>?",
+    back: "- <size>: Số bit nhị phân của hằng số.\n- <base>: Hệ cơ số (b: nhị phân, d: thập phân, h: thập lục phân, o: bát phân).\n- <value>: Giá trị.\n\nVí dụ: 8'hA5 = 8 bit hex (10100101₂), 4'b1010 = 4 bit nhị phân, 4'd9 = 4 bit thập phân.",
+    lessonSlug: "verilog-co-ban",
+    tip: "Nếu viết số trần 5 không khai báo size, Verilog mặc định là số nguyên 32-bit.",
+  },
+  {
+    id: "fc-verilog-03",
+    category: "verilog",
+    front: "Toán tử ghép vector (Concatenation operator) trong Verilog hoạt động như thế nào?",
+    back: "Dùng cặp ngoặc nhọn { } để nối các tín hiệu thành 1 vector lớn:\nVí dụ: {a, b} ghép bit a và b.\nNối bội số (Replication): {4{1'b0}} tương đương 4'b0000.\n\nỨng dụng tính số nhớ cộng: {Cout, Sum} = A + B + Cin;",
+    lessonSlug: "verilog-co-ban",
+    tip: "Rất hay dùng để mở rộng bit dấu hoặc ghép cờ tràn.",
+  },
+
+  // --- VERILOG BEHAVIORAL ---
+  {
+    id: "fc-behavioral-01",
+    category: "trap",
+    front: "Quy tắc vàng phân biệt Blocking (=) và Non-blocking (<=) trong Verilog?",
+    back: "- Dùng Non-blocking (<=) cho logic TUẦN TỰ trong khối `always @(posedge clk)` (mô tả Flip-Flop, thanh ghi, counter).\n- Dùng Blocking (=) cho logic TỔ HỢP trong khối `always @(*)` (mô tả mạch giải mã, MUX, ALU).\n\nTuyệt đối không trộn lẫn cả = và <= gán cho cùng một biến.",
+    lessonSlug: "verilog-behavioral",
+    tip: "Nhớ câu thần chú: Tuần tự dùng '<=', Tổ hợp dùng '='.",
+  },
+  {
+    id: "fc-behavioral-02",
+    category: "trap",
+    front: "Nguyên nhân sinh chốt nhớ ngoài ý muốn (Inadvertent Latch) trong Verilog?",
+    back: "Xảy ra khi thiết kế mạch tổ hợp bằng `always @(*)` nhưng:\n1. Không gán giá trị cho biến ở TẤT CẢ các nhánh `if-else`.\n2. Trong lệnh `case` thiếu nhánh `default` hoặc thiếu trường hợp.\n\nKhi đó trình tổng hợp buộc phải tạo chốt nhớ để lưu giá trị cũ của biến.",
+    lessonSlug: "verilog-behavioral",
+    tip: "Khắc phục: Luôn gán giá trị mặc định cho biến ở ngay dòng đầu tiên của always @(*).",
+  },
+  {
+    id: "fc-behavioral-03",
+    category: "verilog",
+    front: "Ý nghĩa của ký hiệu sao `always @(*)` trong Verilog-2001?",
+    back: "Ký hiệu `@(*)` yêu cầu trình biên dịch tự động đưa TẤT CẢ các tín hiệu đọc bên trong khối vào danh sách nhạy (sensitivity list), ngăn ngừa nguy cơ bỏ sót tín hiệu gây sai lệch giữa mô phỏng và mạch tổng hợp thực tế.",
+    lessonSlug: "verilog-behavioral",
+    tip: "Thay thế cách viết thủ công dễ lỗi: always @(a or b or sel).",
+  },
+
+  // --- MÁY TRẠNG THÁI FSM ---
+  {
+    id: "fc-fsm-01",
+    category: "concept",
+    front: "Phân biệt máy trạng thái Moore và Mealy (FSM)?",
+    back: "- Moore FSM: Ngõ ra Y CHỈ phụ thuộc vào trạng thái hiện tại (State). Tín hiệu ra đồng bộ với clock, ổn định, không chịu ảnh hưởng trực tiếp từ nhiễu ngõ vào.\n- Mealy FSM: Ngõ ra Y phụ thuộc vào CẢ trạng thái hiện tại VÀ ngõ vào (Input). Phản ứng nhanh hơn (ngay trong chu kỳ clock hiện tại) nhưng dễ bị lan truyền xung nhiễu (glitch).",
+    lessonSlug: "fsm",
+    tip: "Moore = Output(State); Mealy = Output(State, Input).",
+  },
+  {
+    id: "fc-fsm-02",
+    category: "verilog",
+    front: "Khung kiến trúc chuẩn 3 khối always khi viết FSM trong Verilog?",
+    back: "1. Khối 1: Thanh ghi trạng thái (State Register) - Logic tuần tự: `always @(posedge clk or negedge rst_n)` dùng non-blocking (<=).\n2. Khối 2: Logic chuyển trạng thái kế tiếp (Next State Logic) - Logic tổ hợp: `always @(*)` dùng blocking (=).\n3. Khối 3: Logic tạo ngõ ra (Output Logic) - Logic tổ hợp `always @(*)` hoặc `assign`.",
+    lessonSlug: "fsm",
+    tip: "Tách bạch 3 khối giúp code sáng sủa, dễ debug và không bao giờ sinh latch.",
+  },
+  {
+    id: "fc-fsm-03",
+    category: "verilog",
+    front: "Tại sao nên dùng `localparam` hoặc `parameter` để định nghĩa trạng thái FSM?",
+    back: "Giúp code dễ đọc, trực quan theo tên ký hiệu (ví dụ: S_IDLE, S_READ, S_WRITE) thay vì gõ số nhị phân trực tiếp; dễ dàng thay đổi kiểu mã hóa trạng thái (Binary, One-Hot, Gray) mà không cần sửa thân logic FSM.",
+    lessonSlug: "fsm",
+    tip: "Ví dụ: localparam S_IDLE = 2'b00, S_START = 2'b01, S_DONE = 2'b10;",
+  },
+
+  // --- MÔ PHỎNG & KIỂM CHỨNG ISE ---
+  {
+    id: "fc-mophong-01",
+    category: "concept",
+    front: "Sự khác biệt căn bản giữa Design Module và Testbench Module?",
+    back: "- Design Module: Mô tả phần cứng thực tế, có các chân `input` và `output`, có thể tổng hợp thành vi mạch FPGA/ASIC (Synthesizable).\n- Testbench: Môi trường kiểm thử ảo, không có chân ngõ vào/ra (port list rỗng). Dùng để phát xung kích thích tín hiệu và quan sát sóng ngõ ra, KHÔNG thể tổng hợp thành phần cứng.",
+    lessonSlug: "mo-phong-ise",
+    tip: "Trong Testbench, tín hiệu nối vào input DUT khai báo là `reg`, nối vào output DUT khai báo là `wire`.",
+  },
+  {
+    id: "fc-mophong-02",
+    category: "verilog",
+    front: "Cú pháp tạo xung clock chu kỳ 20ns (tần số 50MHz) trong Testbench?",
+    back: "`timescale 1ns / 1ps\n\nalways #10 clk = ~clk;\n\nGiải thích: Cứ sau nửa chu kỳ 10ns, tín hiệu clk sẽ tự đảo trạng thái từ 0 sang 1 hoặc ngược lại, tạo nên toàn bộ chu kỳ xung 20ns.",
+    lessonSlug: "mo-phong-ise",
+    tip: "Đừng quên khởi tạo clk = 0 trong khối initial trước khi chạy always clock.",
+  },
+  {
+    id: "fc-mophong-03",
+    category: "trap",
+    front: "Tại sao không được dùng câu lệnh trễ `#10` trong Design Module?",
+    back: "Toán tử trễ `#` chỉ là câu lệnh điều khiển thời gian trong môi trường mô phỏng (Simulation). Trình tổng hợp phần cứng (Synthesis tool) sẽ bỏ qua hoặc báo lỗi vì phần cứng không có linh kiện nào tạo trễ trực tiếp bằng `#`.",
+    lessonSlug: "mo-phong-ise",
+    tip: "Mọi điều khiển trễ thời gian trong phần cứng thực tế phải được tính bằng số chu kỳ xung Clock và bộ đếm.",
+  },
+];

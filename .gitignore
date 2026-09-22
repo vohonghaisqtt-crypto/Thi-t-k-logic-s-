@@ -1,0 +1,45 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Next.js build output
+/.next/
+/out/
+tsconfig.tsbuildinfo
+
+# Production
+/build
+/dist
+
+# Debug and Process logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local environment files
+.env*.local
+.env
+
+# Cloud & Host deployment local caches
+.vercel
+.netlify
+
+# Internal AI agent instructions, scripts & scratch files (Không đưa lên GitHub)
+/.agent/
+/.agents/
+/scratch/
+/docs/
+_Archive/
+_Delete/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+*.pem
