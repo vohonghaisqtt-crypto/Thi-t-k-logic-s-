@@ -1,6 +1,9 @@
 import { GlossaryItem } from "@/lib/types";
 
 export const glossary: GlossaryItem[] = [
+  // ==========================================
+  // MODULE 01: HỆ ĐẾM VÀ BIỂU DIỄN THÔNG TIN
+  // ==========================================
   {
     id: "g-bit",
     term: "Bit (Binary Digit)",
@@ -10,11 +13,30 @@ export const glossary: GlossaryItem[] = [
     related: ["LSB", "MSB", "Byte"],
   },
   {
+    id: "g-byte-nibble",
+    term: "Byte & Nibble",
+    definition: "Nibble là một cụm gồm 4 bit (tương ứng đúng 1 chữ số Hexadecimal). Byte là một cụm gồm 8 bit (tương ứng 2 chữ số Hexadecimal), đơn vị cơ bản để đo dung lượng bộ nhớ.",
+    category: "Hệ đếm",
+    formula: "1 Byte = 8 bits = 2 Nibbles",
+    lessonSlug: "he-dem",
+    related: ["Bit", "MSB", "LSB"],
+  },
+  {
     id: "g-lsb-msb",
     term: "LSB & MSB",
     definition: "LSB (Least Significant Bit): bit có trọng số nhỏ nhất (nằm ngoài cùng bên phải). MSB (Most Significant Bit): bit có trọng số lớn nhất (nằm ngoài cùng bên trái, thường dùng làm bit dấu trong số có dấu).",
     category: "Hệ đếm",
     lessonSlug: "he-dem",
+    related: ["Bit", "Bù 2"],
+  },
+  {
+    id: "g-radix",
+    term: "Cơ số (Radix / Base)",
+    definition: "Số lượng ký số độc lập được sử dụng trong một hệ thống đếm vị trí. Ví dụ: nhị phân (r=2: 0,1), bát phân (r=8: 0..7), thập phân (r=10: 0..9), thập lục phân (r=16: 0..9, A..F).",
+    category: "Hệ đếm",
+    formula: "N = ∑ (d_i · r^i)",
+    lessonSlug: "he-dem",
+    related: ["Bit", "BCD"],
   },
   {
     id: "g-bcd",
@@ -26,6 +48,15 @@ export const glossary: GlossaryItem[] = [
     related: ["Excess-3", "Gray"],
   },
   {
+    id: "g-excess-3",
+    term: "Mã Excess-3 (Mã dư 3)",
+    definition: "Mã không trọng số được tạo bằng cách cộng thêm 3 (0011₂) vào từng chữ số mã BCD tương ứng. Mã này có tính chất tự bù (tự bù 9 khi đảo bit), rất thuận tiện cho mạch làm toán trừ.",
+    category: "Hệ đếm",
+    formula: "Excess-3 = BCD + 0011₂",
+    lessonSlug: "he-dem",
+    related: ["BCD", "Bù 1"],
+  },
+  {
     id: "g-gray",
     term: "Mã Gray",
     definition: "Mã nhị phân phản chiếu mà hai từ mã kế tiếp nhau chỉ khác nhau duy nhất 1 bit, giúp loại trừ xung đột tín hiệu và lỗi chuyển trạng thái (dùng trong bìa Karnaugh và bộ đếm vòng).",
@@ -34,13 +65,43 @@ export const glossary: GlossaryItem[] = [
     related: ["Karnaugh"],
   },
   {
+    id: "g-bu-1",
+    term: "Số bù 1 (One's Complement)",
+    definition: "Phương pháp biểu diễn số âm bằng cách đảo toàn bộ tất cả các bit của số dương (0 thành 1, 1 thành 0). Nhược điểm là tồn tại hai biểu diễn cho số 0 (+0 và -0) và cần vòng bit nhớ khi cộng.",
+    category: "Hệ đếm",
+    formula: "Bù 1 = ~N",
+    lessonSlug: "he-dem",
+    related: ["Bù 2", "Overflow"],
+  },
+  {
     id: "g-bu-2",
     term: "Số bù 2 (Two's Complement)",
     definition: "Phương pháp biểu diễn số nguyên có dấu chuẩn trong máy tính. Bù 2 được tạo bằng cách lấy bù 1 (đảo tất cả các bit) rồi cộng thêm 1. Phép trừ A - B được biến thành phép cộng A + (Bù 2 của B).",
     category: "Hệ đếm",
     formula: "Bù 2 = Bù 1 + 1",
     lessonSlug: "he-dem",
-    related: ["Half Adder", "Full Adder"],
+    related: ["Half Adder", "Full Adder", "Overflow"],
+  },
+  {
+    id: "g-overflow",
+    term: "Tràn số học (Arithmetic Overflow)",
+    definition: "Hiện tượng xảy ra khi kết quả của phép cộng/trừ hai số có dấu vượt quá phạm vi lưu trữ của thanh ghi n bit (ví dụ cộng hai số dương ra số âm hoặc hai số âm ra số dương).",
+    category: "Hệ đếm",
+    formula: "V = C_in_MSB ⊕ C_out_MSB",
+    lessonSlug: "he-dem",
+    related: ["Bù 2", "MSB"],
+  },
+
+  // ==========================================
+  // MODULE 02: ĐẠI SỐ BOOLE VÀ CỔNG LOGIC
+  // ==========================================
+  {
+    id: "g-boolean-algebra",
+    term: "Đại số Boole (Boolean Algebra)",
+    definition: "Hệ thống đại số toán học làm việc trên các biến logic chỉ nhận hai giá trị 0 (False) và 1 (True), cùng với ba phép toán logic cơ bản là AND, OR và NOT.",
+    category: "Đại số Boole",
+    lessonSlug: "dai-so-boole",
+    related: ["DeMorgan", "Cổng logic vạn năng"],
   },
   {
     id: "g-demorgan",
@@ -52,6 +113,14 @@ export const glossary: GlossaryItem[] = [
     related: ["NAND", "NOR"],
   },
   {
+    id: "g-duality",
+    term: "Nguyên lý Đối ngẫu (Duality Principle)",
+    definition: "Nếu một đẳng thức đại số Boole là đúng, thì biểu thức đối ngẫu của nó (thu được bằng cách đổi AND ↔ OR và đổi 0 ↔ 1, giữ nguyên biến) cũng là một đẳng thức đúng.",
+    category: "Đại số Boole",
+    lessonSlug: "dai-so-boole",
+    related: ["Đại số Boole"],
+  },
+  {
     id: "g-xor",
     term: "Cổng XOR (Exclusive-OR)",
     definition: "Cổng logic ngõ ra bằng 1 khi hai ngõ vào có giá trị khác nhau. Với nhiều ngõ vào, ngõ ra bằng 1 khi tổng số bit 1 ở ngõ vào là một số lẻ.",
@@ -61,11 +130,51 @@ export const glossary: GlossaryItem[] = [
     related: ["XNOR", "Parity", "Half Adder"],
   },
   {
+    id: "g-xnor",
+    term: "Cổng XNOR (Equivalence Gate)",
+    definition: "Cổng logic tương đương (phủ định của XOR), ngõ ra bằng 1 khi hai ngõ vào có giá trị giống nhau (cùng là 0 hoặc cùng là 1). Được dùng làm khối cơ bản của mạch so sánh bằng.",
+    category: "Đại số Boole",
+    formula: "Y = ¬(A ⊕ B) = A·B + ¬A·¬B",
+    lessonSlug: "dai-so-boole",
+    related: ["XOR", "Comparator"],
+  },
+  {
+    id: "g-universal-gate",
+    term: "Cổng vạn năng (Universal Gate)",
+    definition: "Cổng logic mà chỉ cần dùng riêng một loại cổng đó cũng có thể tự xây dựng được toàn bộ các cổng logic cơ bản (NOT, AND, OR). Hai cổng vạn năng duy nhất là NAND và NOR.",
+    category: "Đại số Boole",
+    lessonSlug: "dai-so-boole",
+    related: ["DeMorgan"],
+  },
+
+  // ==========================================
+  // MODULE 03: DẠNG CHUẨN TẮC & BÌA KARNAUGH
+  // ==========================================
+  {
+    id: "g-minterm",
+    term: "Minterm (Tích chuẩn tắc)",
+    definition: "Tích logic (AND) của tất cả các biến trong hàm, trong đó mỗi biến xuất hiện đúng 1 lần dưới dạng thường hoặc bù. Minterm m_i nhận giá trị 1 tại duy nhất một dòng thứ i của bảng chân trị.",
+    category: "Karnaugh",
+    formula: "F = ∑ m(i)",
+    lessonSlug: "karnaugh",
+    related: ["Maxterm", "SOP & POS"],
+  },
+  {
+    id: "g-maxterm",
+    term: "Maxterm (Tổng chuẩn tắc)",
+    definition: "Tổng logic (OR) của tất cả các biến trong hàm, nhận giá trị 0 tại duy nhất dòng thứ i của bảng chân trị. Quy ước biến 0 là dạng thường, biến 1 là dạng bù.",
+    category: "Karnaugh",
+    formula: "F = ∏ M(i)",
+    lessonSlug: "karnaugh",
+    related: ["Minterm", "SOP & POS"],
+  },
+  {
     id: "g-sop-pos",
     term: "Dạng SOP & POS",
     definition: "SOP (Sum of Products): tổng các tích logic (minterm Σm). POS (Product of Sums): tích các tổng logic (maxterm ΠM). Đây là hai dạng chuẩn tắc biểu diễn mọi hàm Boolean.",
     category: "Karnaugh",
     lessonSlug: "karnaugh",
+    related: ["Minterm", "Maxterm"],
   },
   {
     id: "g-kmap",
@@ -73,6 +182,29 @@ export const glossary: GlossaryItem[] = [
     definition: "Bảng đồ họa sắp xếp các ô theo mã Gray nhằm trực quan hóa và rút gọn tối đa biểu thức hàm Boolean mà không cần dùng biến đổi đại số phức tạp.",
     category: "Karnaugh",
     lessonSlug: "karnaugh",
+    related: ["Gray", "Don't Care"],
+  },
+  {
+    id: "g-dont-care",
+    term: "Điều kiện tùy định (Don't Care - X)",
+    definition: "Các tổ hợp ngõ vào không bao giờ xảy ra trong thực tế hoặc ngõ ra nhận giá trị nào cũng không ảnh hưởng đến hệ thống. Trên bìa K-map, có thể gán X thành 1 hoặc 0 để tối ưu kích thước nhóm.",
+    category: "Karnaugh",
+    formula: "d(i) hoặc X",
+    lessonSlug: "karnaugh",
+    related: ["K-map"],
+  },
+
+  // ==========================================
+  // MODULE 04: MẠCH LOGIC TỔ HỢP CĂN BẢN
+  // ==========================================
+  {
+    id: "g-combinational-logic",
+    term: "Mạch logic tổ hợp (Combinational Logic)",
+    definition: "Hệ thống mạch số mà trạng thái ngõ ra ở bất kỳ thời điểm nào CHỈ phụ thuộc duy nhất vào tổ hợp các tín hiệu ở ngõ vào tại chính thời điểm đó (không có phần tử nhớ, không có phản hồi vòng).",
+    category: "Mạch tổ hợp",
+    formula: "Y = f(X1, X2, ..., Xn)",
+    lessonSlug: "mach-to-hop",
+    related: ["Mạch tuần tự"],
   },
   {
     id: "g-encoder",
@@ -80,7 +212,15 @@ export const glossary: GlossaryItem[] = [
     definition: "Mạch logic tổ hợp có 2^n ngõ vào và n ngõ ra, chuyển đổi tín hiệu tích cực ở một ngõ vào thành mã nhị phân tương ứng. Nếu nhiều ngõ vào cùng tích cực thì cần Priority Encoder.",
     category: "Mạch tổ hợp",
     lessonSlug: "mach-to-hop",
-    related: ["Decoder"],
+    related: ["Decoder", "Priority Encoder"],
+  },
+  {
+    id: "g-priority-encoder",
+    term: "Bộ mã hóa ưu tiên (Priority Encoder)",
+    definition: "Bộ mã hóa khắc phục nhược điểm xung đột nhiều ngõ vào cùng tích cực: nếu có nhiều tín hiệu vào đồng thời lên 1, mạch sẽ xuất mã nhị phân của ngõ vào có thứ tự ưu tiên cao nhất.",
+    category: "Mạch tổ hợp",
+    lessonSlug: "mach-to-hop",
+    related: ["Encoder"],
   },
   {
     id: "g-decoder",
@@ -88,7 +228,15 @@ export const glossary: GlossaryItem[] = [
     definition: "Mạch logic tổ hợp có n ngõ vào và tối đa 2^n ngõ ra, kích hoạt duy nhất một ngõ ra tương ứng với tổ hợp mã nhị phân ở ngõ vào (ví dụ IC 74LS138, giải mã BCD sang LED 7 đoạn).",
     category: "Mạch tổ hợp",
     lessonSlug: "mach-to-hop",
-    related: ["Encoder"],
+    related: ["Encoder", "Enable"],
+  },
+  {
+    id: "g-active-level",
+    term: "Mức tích cực (Active-High & Active-Low)",
+    definition: "Active-High: ngõ vào/ra được kích hoạt khi ở mức điện áp cao (logic 1). Active-Low: ngõ vào/ra được kích hoạt khi ở mức điện áp thấp (logic 0, thường ký hiệu có dấu gạch trên đầu hoặc dấu chấm tròn đảo).",
+    category: "Mạch tổ hợp",
+    lessonSlug: "mach-to-hop",
+    related: ["Decoder"],
   },
   {
     id: "g-mux",
@@ -105,7 +253,20 @@ export const glossary: GlossaryItem[] = [
     definition: "Mạch nhận 1 ngõ vào dữ liệu duy nhất và chuyển tới 1 trong 2^n ngõ ra tùy thuộc vào tổ hợp n ngõ vào điều khiển.",
     category: "Mạch tổ hợp",
     lessonSlug: "mach-to-hop",
-    related: ["MUX"],
+    related: ["MUX", "Decoder"],
+  },
+
+  // ==========================================
+  // MODULE 05: MẠCH SỐ HỌC & SO SÁNH
+  // ==========================================
+  {
+    id: "g-half-adder",
+    term: "Bộ nửa cộng (Half Adder)",
+    definition: "Mạch số học thực hiện cộng 2 bit nhị phân (A và B), tạo ra 1 bit tổng (S = A ⊕ B) và 1 bit nhớ ra (C = A·B). Half Adder không có chân nhận bit nhớ từ tầng trước.",
+    category: "Mạch số học",
+    formula: "S = A ⊕ B; C = A·B",
+    lessonSlug: "mach-so-hoc",
+    related: ["Full Adder"],
   },
   {
     id: "g-full-adder",
@@ -114,14 +275,60 @@ export const glossary: GlossaryItem[] = [
     category: "Mạch số học",
     formula: "S = A ⊕ B ⊕ Cin; Cout = A·B + Cin·(A ⊕ B)",
     lessonSlug: "mach-so-hoc",
-    related: ["Half Adder"],
+    related: ["Half Adder", "Ripple Carry"],
+  },
+  {
+    id: "g-ripple-carry",
+    term: "Bộ cộng lan truyền nhớ (Ripple Carry Adder)",
+    definition: "Mạch cộng n-bit được ghép nối từ n khối Full Adder liên tiếp, trong đó bit nhớ Cout của tầng trước được nối trực tiếp vào Cin của tầng kế tiếp.",
+    category: "Mạch số học",
+    lessonSlug: "mach-so-hoc",
+    related: ["Full Adder"],
+  },
+  {
+    id: "g-comparator",
+    term: "Bộ so sánh số học (Magnitude Comparator)",
+    definition: "Mạch logic tổ hợp dùng để so sánh hai từ mã nhị phân A và B, cho ra ba tín hiệu trạng thái tương ứng: A > B, A = B, và A < B.",
+    category: "Mạch số học",
+    lessonSlug: "mach-so-hoc",
+    related: ["XNOR"],
+  },
+  {
+    id: "g-parity",
+    term: "Bit chẵn lẻ (Parity Bit)",
+    definition: "Bit kiểm tra được ghép thêm vào chuỗi dữ liệu nhị phân để tổng số bit 1 trong từ mã luôn là số chẵn (Even Parity) hoặc số lẻ (Odd Parity), giúp phát hiện lỗi truyền dẫn 1 bit.",
+    category: "Mạch số học",
+    formula: "P_even = A ⊕ B ⊕ C ⊕ D",
+    lessonSlug: "mach-so-hoc",
+    related: ["XOR"],
+  },
+
+  // ==========================================
+  // MODULE 06: MẠCH LOGIC TUẦN TỰ & FLIP-FLOP
+  // ==========================================
+  {
+    id: "g-sequential-logic",
+    term: "Mạch logic tuần tự (Sequential Logic)",
+    definition: "Mạch số có chứa phần tử nhớ, trong đó ngõ ra phụ thuộc vào cả tổ hợp ngõ vào hiện tại và trạng thái quá khứ được lưu trữ trong mạch (Next State = f(Current State, Input)).",
+    category: "Mạch tuần tự",
+    lessonSlug: "mach-tuan-tu",
+    related: ["Mạch tổ hợp", "Flip-Flop"],
+  },
+  {
+    id: "g-latch",
+    term: "Latch (Chốt nhớ nhạy mức)",
+    definition: "Phần tử nhớ 1 bit nhạy theo mức tín hiệu điều khiển (Level-sensitive). Khi tín hiệu Enable kích hoạt, dữ liệu ngõ vào truyền thẳng qua ngõ ra liên tục (trong suốt).",
+    category: "Mạch tuần tự",
+    lessonSlug: "mach-tuan-tu",
+    related: ["Flip-Flop", "Inadvertent Latch"],
   },
   {
     id: "g-flip-flop",
     term: "Flip-Flop (Chốt trạng thái)",
-    definition: "Phần tử nhớ cơ bản 1 bit trong mạch tuần tự có 2 trạng thái bền, đồng bộ theo cạnh xung nhịp (Clock Edge). Các loại chính: RS, JK, D, T.",
+    definition: "Phần tử nhớ cơ bản 1 bit trong mạch tuần tự có 2 trạng thái bền, đồng bộ theo cạnh xung nhịp (Clock Edge: cạnh lên posedge hoặc cạnh xuống negedge). Các loại chính: RS, JK, D, T.",
     category: "Mạch tuần tự",
     lessonSlug: "mach-tuan-tu",
+    related: ["Latch", "D Flip-Flop", "Clock"],
   },
   {
     id: "g-d-ff",
@@ -130,21 +337,106 @@ export const glossary: GlossaryItem[] = [
     category: "Mạch tuần tự",
     formula: "Q+ = D",
     lessonSlug: "mach-tuan-tu",
+    related: ["JK Flip-Flop", "T Flip-Flop"],
   },
   {
-    id: "g-fsm",
-    term: "Máy trạng thái hữu hạn (FSM)",
-    definition: "Mô hình toán học điều khiển hệ thống tuần tự gồm tập hữu hạn các trạng thái, bộ nhớ trạng thái (State Register) và logic chuyển đổi trạng thái/ngõ ra.",
-    category: "FSM",
-    lessonSlug: "fsm",
-    related: ["Moore", "Mealy"],
+    id: "g-jk-ff",
+    term: "JK Flip-Flop",
+    definition: "Flip-Flop vạn năng khắc phục trạng thái cấm của RS FF. Khi J=0, K=0 giữ nguyên; J=0, K=1 xóa về 0; J=1, K=0 đặt lên 1; J=1, K=1 đảo trạng thái (Toggle).",
+    category: "Mạch tuần tự",
+    formula: "Q+ = J·~Q + ~K·Q",
+    lessonSlug: "mach-tuan-tu",
+    related: ["RS FF", "T Flip-Flop"],
   },
   {
-    id: "g-moore-mealy",
-    term: "Moore vs Mealy",
-    definition: "Moore: ngõ ra chỉ phụ thuộc vào trạng thái hiện tại (an toàn, không bị glitch ngõ vào). Mealy: ngõ ra phụ thuộc cả trạng thái hiện tại và ngõ vào (phản ứng nhanh hơn, cần ít trạng thái hơn nhưng dễ nhạy với xung nhiễu).",
-    category: "FSM",
-    lessonSlug: "fsm",
+    id: "g-t-ff",
+    term: "T Flip-Flop (Toggle FF)",
+    definition: "Flip-Flop có 1 ngõ vào T. Khi T=0, ngõ ra giữ nguyên trạng thái; khi T=1, ngõ ra đảo trạng thái sau mỗi cạnh xung clock (Q+ = ~Q). Ứng dụng chính trong các bộ đếm nhị phân.",
+    category: "Mạch tuần tự",
+    formula: "Q+ = T ⊕ Q",
+    lessonSlug: "mach-tuan-tu",
+    related: ["JK Flip-Flop", "Counter"],
+  },
+  {
+    id: "g-excitation-table",
+    term: "Bảng kích thích (Excitation Table)",
+    definition: "Bảng tra cứu dùng trong thiết kế mạch tuần tự: cho biết cần đặt các ngõ vào của Flip-Flop (S-R, J-K, D, T) bằng bao nhiêu để làm cho ngõ ra chuyển từ trạng thái Q hiện tại sang trạng thái Q+ kế tiếp.",
+    category: "Mạch tuần tự",
+    lessonSlug: "mach-tuan-tu",
+    related: ["Flip-Flop", "Counter"],
+  },
+  {
+    id: "g-pre-clr",
+    term: "Ngõ trực tiếp PRE / CLR (Preset / Clear)",
+    definition: "Các ngõ vào điều khiển không đồng bộ (Asynchronous Inputs) của Flip-Flop có mức ưu tiên cao nhất, lập tức ép ngõ ra lên 1 (PRE) hoặc xóa về 0 (CLR) mà không cần chờ xung Clock.",
+    category: "Mạch tuần tự",
+    lessonSlug: "mach-tuan-tu",
+    related: ["Flip-Flop"],
+  },
+  {
+    id: "g-metastability",
+    term: "Trạng thái giả định không bền (Metastability) [BỔ SUNG NGOÀI GIÁO TRÌNH]",
+    definition: "Hiện tượng ngõ ra của Flip-Flop dao động ở mức điện áp không xác định giữa 0 và 1 khi tín hiệu ngõ vào vi phạm thời gian thiết lập (Setup Time) hoặc thời gian giữ (Hold Time).",
+    category: "Mạch tuần tự",
+    lessonSlug: "mach-tuan-tu",
+    related: ["Flip-Flop"],
+  },
+
+  // ==========================================
+  // MODULE 07: BỘ ĐẾM & THANH GHI DỊCH
+  // ==========================================
+  {
+    id: "g-mod-m",
+    term: "Bộ đếm Mod-M (Modulus-M Counter)",
+    definition: "Bộ đếm có chu kỳ lặp lại đúng M trạng thái phân biệt trước khi quay về trạng thái ban đầu. Để đếm Mod-M cần số FF thỏa mãn: 2^(n-1) < M ≤ 2^n.",
+    category: "Bộ đếm & Thanh ghi",
+    formula: "2^(n-1) < M ≤ 2^n",
+    lessonSlug: "counter-register",
+    related: ["Ripple Counter", "Synchronous Counter"],
+  },
+  {
+    id: "g-ripple-counter",
+    term: "Bộ đếm bất đồng bộ (Ripple Counter)",
+    definition: "Bộ đếm trong đó ngõ ra của Flip-Flop trước được dùng làm xung clock cho Flip-Flop tiếp theo. Mạch có cấu trúc đơn giản nhưng độ trễ truyền lan bị cộng dồn theo số tầng.",
+    category: "Bộ đếm & Thanh ghi",
+    lessonSlug: "counter-register",
+    related: ["Synchronous Counter", "Mod-M"],
+  },
+  {
+    id: "g-sync-counter",
+    term: "Bộ đếm đồng bộ (Synchronous Counter)",
+    definition: "Bộ đếm trong đó tất cả các Flip-Flop đều nhận chung một nguồn xung Clock đồng thời. Việc chuyển trạng thái diễn ra cùng lúc, loại bỏ hiện tượng trễ lũy tiến của Ripple Counter.",
+    category: "Bộ đếm & Thanh ghi",
+    lessonSlug: "counter-register",
+    related: ["Ripple Counter"],
+  },
+  {
+    id: "g-shift-register",
+    term: "Thanh ghi dịch (Shift Register)",
+    definition: "Chuỗi các Flip-Flop ghép nối liên tiếp cho phép dịch chuyển dữ liệu nhị phân sang trái hoặc sang phải sau mỗi chu kỳ clock. Gồm 4 kiểu cơ bản: SISO, SIPO, PISO, PIPO.",
+    category: "Bộ đếm & Thanh ghi",
+    lessonSlug: "counter-register",
+    related: ["D Flip-Flop"],
+  },
+
+  // ==========================================
+  // MODULE 08: QUY TRÌNH HDL & VERILOG CƠ BẢN
+  // ==========================================
+  {
+    id: "g-hdl",
+    term: "HDL (Hardware Description Language)",
+    definition: "Ngôn ngữ mô tả phần cứng chuyên dụng (như Verilog, VHDL) dùng để thiết kế, mô phỏng và kiểm chứng các mạch số ở mức chuyển giao thanh ghi (RTL) trước khi nạp lên FPGA hoặc sản xuất vi mạch ASIC.",
+    category: "Verilog HDL",
+    lessonSlug: "verilog-co-ban",
+    related: ["wire vs reg", "Module"],
+  },
+  {
+    id: "g-module-port",
+    term: "Module & Port trong Verilog",
+    definition: "Khối kiến trúc cơ bản cấu thành hệ thống trong Verilog, được giới hạn bởi module...endmodule. Danh sách cổng (Port list) xác định các tín hiệu giao tiếp ngõ vào (input), ngõ ra (output) hoặc hai chiều (inout).",
+    category: "Verilog HDL",
+    lessonSlug: "verilog-co-ban",
+    related: ["wire vs reg", "Named Mapping"],
   },
   {
     id: "g-wire-reg",
@@ -152,6 +444,63 @@ export const glossary: GlossaryItem[] = [
     definition: "wire: đại diện cho đường dây nối vật lý, nhận giá trị liên tục qua assign hoặc ngõ ra module. reg: đại diện cho biến lưu trữ giá trị trong khối thủ tục always/initial.",
     category: "Verilog HDL",
     lessonSlug: "verilog-co-ban",
+    related: ["assign", "always"],
+  },
+  {
+    id: "g-continuous-assign",
+    term: "Phép gán liên tục (assign)",
+    definition: "Câu lệnh continuous assignment dùng để mô tả luồng dữ liệu (Dataflow modeling) cho mạch tổ hợp. Biểu thức vế phải được đánh giá liên tục và cập nhật ngay vào biến kiểu wire ở vế trái.",
+    category: "Verilog HDL",
+    formula: "assign net_name = expression;",
+    lessonSlug: "verilog-co-ban",
+    related: ["wire vs reg"],
+  },
+  {
+    id: "g-reduction-op",
+    term: "Toán tử thu gọn (Reduction Operator)",
+    definition: "Toán tử một ngôi (unary) đặt trước một vector bus (ví dụ &A, |A, ^A), thực hiện phép toán logic trên tất cả các bit của vector đó để trả về kết quả thu gọn đúng 1 bit duy nhất.",
+    category: "Verilog HDL",
+    formula: "&A = A[0] & A[1] & ... & A[n-1]",
+    lessonSlug: "verilog-co-ban",
+    related: ["Toán tử Verilog"],
+  },
+  {
+    id: "g-concat-op",
+    term: "Toán tử ghép vector & nhân bản ({}, {{}})",
+    definition: "Toán tử ghép nối '{a, b}' dùng để gộp nhiều tín hiệu bit nhỏ thành một bus vector lớn. Toán tử nhân bản '{n{a}}' sao chép tín hiệu a lặp lại đúng n lần.",
+    category: "Verilog HDL",
+    formula: "{2'b10, 2'b01} = 4'b1001",
+    lessonSlug: "verilog-co-ban",
+    related: ["Bus Vector"],
+  },
+  {
+    id: "g-named-mapping",
+    term: "Khởi tạo Module theo tên (Named Port Mapping)",
+    definition: "Phương pháp ghép nối cổng an toàn chuẩn công nghiệp khi gọi module con: .tên_cổng_con(tên_dây_nối). Phương pháp này độc lập hoàn toàn với thứ tự khai báo cổng trong module gốc.",
+    category: "Verilog HDL",
+    formula: ".cổng_gốc(tín_hiệu_nối)",
+    lessonSlug: "verilog-co-ban",
+    related: ["Module & Port"],
+  },
+
+  // ==========================================
+  // MODULE 09: MÔ TẢ HÀNH VI (BEHAVIORAL)
+  // ==========================================
+  {
+    id: "g-procedural-block",
+    term: "Khối thủ tục (always & initial)",
+    definition: "Các khối mã hành vi trong Verilog chứa các câu lệnh gán tuần tự. 'initial' chỉ chạy duy nhất 1 lần tại t=0 (dùng trong Testbench). 'always' lặp lại liên tục mỗi khi danh sách nhạy có tín hiệu thay đổi.",
+    category: "Verilog HDL",
+    lessonSlug: "verilog-behavioral",
+    related: ["always", "initial", "wire vs reg"],
+  },
+  {
+    id: "g-sensitivity-list",
+    term: "Danh sách nhạy (Sensitivity List)",
+    definition: "Danh sách các tín hiệu đặt sau dấu '@' của khối always (ví dụ @(posedge clk) hoặc @(*)). Khối always chỉ được kích hoạt để thực thi lại khi có ít nhất một tín hiệu trong danh sách này biến đổi.",
+    category: "Verilog HDL",
+    lessonSlug: "verilog-behavioral",
+    related: ["always", "Blocking vs Non-blocking"],
   },
   {
     id: "g-blocking-nonblocking",
@@ -159,6 +508,80 @@ export const glossary: GlossaryItem[] = [
     definition: "Phép gán '=' thực thi tuần tự từng bước (dùng cho logic tổ hợp). Phép gán '<=' đánh giá đồng thời tất cả vế phải rồi cập nhật cùng lúc (dùng cho logic tuần tự đồng bộ theo clock).",
     category: "Verilog HDL",
     lessonSlug: "verilog-behavioral",
+    related: ["always", "Flip-Flop"],
+  },
+  {
+    id: "g-inadvertent-latch",
+    term: "Chốt nhớ ngoài ý muốn (Inadvertent Latch)",
+    definition: "Lỗi phần cứng nghiêm trọng xảy ra khi viết khối tổ hợp always @(*) có lệnh 'if' thiếu nhánh 'else' hoặc lệnh 'case' thiếu nhánh 'default'. Bộ tổng hợp buộc phải sinh ra Latch để giữ giá trị cũ.",
+    category: "Verilog HDL",
+    lessonSlug: "verilog-behavioral",
+    related: ["Latch", "case"],
+  },
+  {
+    id: "g-casez-casex",
+    term: "Lệnh rẽ nhánh casez và casex",
+    definition: "Biến thể của lệnh case cho phép so sánh có chứa điều kiện tùy định. 'casez' bỏ qua các bit 'z' hoặc '?'. 'casex' bỏ qua cả 'x' và 'z'. Giáo trình khuyến nghị dùng casez để tránh ẩn lỗi chưa khởi tạo.",
+    category: "Verilog HDL",
+    lessonSlug: "verilog-behavioral",
+    related: ["case", "Don't Care"],
+  },
+
+  // ==========================================
+  // MODULE 10: MÁY TRẠNG THÁI HỮU HẠN (FSM)
+  // ==========================================
+  {
+    id: "g-fsm",
+    term: "Máy trạng thái hữu hạn (FSM)",
+    definition: "Mô hình toán học điều khiển hệ thống tuần tự gồm tập hữu hạn các trạng thái, bộ nhớ trạng thái (State Register) và logic chuyển đổi trạng thái/ngõ ra.",
+    category: "FSM",
+    lessonSlug: "fsm",
+    related: ["Moore vs Mealy", "State Register"],
+  },
+  {
+    id: "g-moore-mealy",
+    term: "Mô hình Moore vs Mealy",
+    definition: "Moore: ngõ ra chỉ phụ thuộc vào trạng thái hiện tại (an toàn, không bị glitch ngõ vào). Mealy: ngõ ra phụ thuộc cả trạng thái hiện tại và ngõ vào (phản ứng nhanh hơn, cần ít trạng thái hơn nhưng dễ nhạy với xung nhiễu).",
+    category: "FSM",
+    lessonSlug: "fsm",
+    related: ["FSM", "State Register"],
+  },
+  {
+    id: "g-state-register",
+    term: "Thanh ghi lưu trạng thái (State Register)",
+    definition: "Khối phần cứng tuần tự (gồm tập hợp các D Flip-Flop chung clock và reset) có nhiệm vụ chốt trạng thái hiện tại của FSM: current_state <= next_state tại mỗi cạnh xung nhịp.",
+    category: "FSM",
+    lessonSlug: "fsm",
+    related: ["FSM", "D Flip-Flop"],
+  },
+  {
+    id: "g-next-state-logic",
+    term: "Logic tính trạng thái kế tiếp (Next-State Logic)",
+    definition: "Khối mạch logic tổ hợp (thường mô tả bằng always @(*) và lệnh case) tính toán trạng thái tiếp theo next_state dựa trên trạng thái hiện tại current_state và các tín hiệu ngõ vào.",
+    category: "FSM",
+    formula: "Next_State = f(Current_State, Inputs)",
+    lessonSlug: "fsm",
+    related: ["FSM", "State Register"],
+  },
+  {
+    id: "g-state-encoding",
+    term: "Mã hóa trạng thái (State Encoding)",
+    definition: "Phương pháp gán chuỗi bit nhị phân cho từng trạng thái tượng trưng trong FSM. Ba kiểu phổ biến: Binary Encoding (ít FF nhất: log2(N)), One-hot Encoding (mỗi state 1 FF, nhanh cho FPGA), và Gray Code (giảm nhiễu chuyển mạch).",
+    category: "FSM",
+    lessonSlug: "fsm",
+    related: ["Gray", "FSM"],
+  },
+
+  // ==========================================
+  // MODULE 11: KIỂM CHỨNG MÔ PHỎNG ISE XILINX
+  // ==========================================
+  {
+    id: "g-dut",
+    term: "DUT / UUT (Device / Unit Under Test)",
+    definition: "Khối module phần cứng mục tiêu cần được kiểm tra tính đúng đắn về mặt chức năng và thời gian trong môi trường mô phỏng Testbench.",
+    category: "Kiểm chứng mô phỏng",
+    lessonSlug: "mo-phong-ise",
+    related: ["Testbench", "Stimulus"],
   },
   {
     id: "g-testbench",
@@ -166,5 +589,31 @@ export const glossary: GlossaryItem[] = [
     definition: "Module Verilog độc lập không có ngõ I/O, dùng để khởi tạo Design Under Test (DUT), cung cấp xung clock, tạo vector kích thích (stimulus) và giám sát kết quả trên giản đồ sóng.",
     category: "Kiểm chứng mô phỏng",
     lessonSlug: "mo-phong-ise",
+    related: ["DUT", "Stimulus", "Waveform"],
+  },
+  {
+    id: "g-stimulus",
+    term: "Vector kích thích (Stimulus)",
+    definition: "Chuỗi các giá trị dữ liệu và thời điểm trễ (#delay) được nạp vào các ngõ vào của DUT trong Testbench để kích hoạt mạch hoạt động qua tất cả các trường hợp kiểm thử.",
+    category: "Kiểm chứng mô phỏng",
+    lessonSlug: "mo-phong-ise",
+    related: ["Testbench", "Waveform"],
+  },
+  {
+    id: "g-waveform",
+    term: "Giản đồ sóng (Waveform)",
+    definition: "Đồ thị trực quan hóa sự biến thiên của các tín hiệu logic theo trục thời gian trong trình mô phỏng ISim, là bằng chứng thực nghiệm để đối chiếu hành vi mạch với bảng chân trị thiết kế.",
+    category: "Kiểm chứng mô phỏng",
+    lessonSlug: "mo-phong-ise",
+    related: ["Testbench", "DUT"],
+  },
+  {
+    id: "g-timescale",
+    term: "Chỉ thị thời gian (`timescale)",
+    definition: "Chỉ thị tiền xử lý của Verilog xác định đơn vị thời gian mô phỏng (time_unit) và độ chính xác làm tròn số (time_precision). Ví dụ: `timescale 1ns / 1ps nghĩa là #10 tương ứng trễ 10ns.",
+    category: "Kiểm chứng mô phỏng",
+    formula: "`timescale <unit> / <precision>",
+    lessonSlug: "mo-phong-ise",
+    related: ["Testbench"],
   },
 ];

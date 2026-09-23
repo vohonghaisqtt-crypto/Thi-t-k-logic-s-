@@ -5,8 +5,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { CodeBlock } from "@/components/markdown/CodeBlock";
 import { FormulaCard } from "@/components/markdown/FormulaCard";
-import { slugify } from "@/lib/content";
-import { Hash, Info } from "lucide-react";
+import { slugify } from "@/lib/utils";
+import { Hash, Info, Cpu, AlertTriangle, Lightbulb, Zap } from "lucide-react";
 
 export function MarkdownRenderer({ content }: { content: string }) {
   return (
@@ -65,6 +65,19 @@ export function MarkdownRenderer({ content }: { content: string }) {
               </h3>
             );
           },
+          h4({ children }) {
+            const text = String(children);
+            const id = slugify(text);
+            return (
+              <h4
+                id={id}
+                className="text-sm sm:text-base font-semibold text-foreground/95 mt-5 mb-2 flex items-center gap-2 scroll-mt-20"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/70 shrink-0 inline-block" />
+                <span>{children}</span>
+              </h4>
+            );
+          },
           p({ children }) {
             return (
               <p className="text-sm sm:text-base text-foreground/90 leading-relaxed mb-4">
@@ -74,14 +87,14 @@ export function MarkdownRenderer({ content }: { content: string }) {
           },
           ul({ children }) {
             return (
-              <ul className="list-disc list-outside pl-5 mb-4 space-y-1 text-sm sm:text-base text-foreground/90">
+              <ul className="list-disc list-outside pl-5 mb-4 space-y-1.5 text-sm sm:text-base text-foreground/90">
                 {children}
               </ul>
             );
           },
           ol({ children }) {
             return (
-              <ol className="list-decimal list-outside pl-5 mb-4 space-y-1 text-sm sm:text-base text-foreground/90">
+              <ol className="list-decimal list-outside pl-5 mb-4 space-y-1.5 text-sm sm:text-base text-foreground/90">
                 {children}
               </ol>
             );
@@ -91,19 +104,48 @@ export function MarkdownRenderer({ content }: { content: string }) {
           },
           blockquote({ children }) {
             // Extract string to detect callout intention
-            let text = "";
+            let rawText = "";
             const extractText = (node: any): string => {
               if (typeof node === "string") return node;
               if (Array.isArray(node)) return node.map(extractText).join(" ");
               if (node && node.props && node.props.children) return extractText(node.props.children);
               return "";
             };
-            text = extractText(children).toLowerCase();
+            rawText = extractText(children);
+            const textLower = rawText.toLowerCase();
 
-            const isWarning = text.includes("cạm bẫy") || text.includes("sai lầm") || text.includes("nguy hiểm") || text.includes("lỗi") || text.includes("[!warning]");
-            const isTip = text.includes("mẹo") || text.includes("kinh nghiệm") || text.includes("[!tip]");
-            const isHardware = text.includes("verilog") || text.includes("phần cứng") || text.includes("reg") || text.includes("flip-flop");
+            // 1. Sơ đồ minh họa kiến trúc [FIGURE: ...]
+            const isFigure = textLower.includes("[figure:");
+            if (isFigure) {
+              return (
+                <div
+                  aria-label="Sơ đồ kiến trúc phần cứng"
+                  className="my-6 p-4 rounded-xl border border-primary/30 bg-primary/[0.04] dark:bg-primary/[0.08] flex items-start gap-3 shadow-xs"
+                >
+                  <div className="p-1.5 rounded-lg bg-primary/10 text-primary shrink-0 mt-0.5">
+                    <Cpu className="w-4 h-4" />
+                  </div>
+                  <div className="space-y-1 leading-relaxed text-xs sm:text-sm">
+                    <div className="font-semibold text-primary uppercase tracking-wider text-[11px]">
+                      Sơ đồ kiến trúc phần cứng (Tham chiếu giáo trình)
+                    </div>
+                    <div className="font-mono text-foreground/90 [&>p]:mb-0">
+                      {children}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
 
+            // 2. Cảnh báo cạm bẫy thiết kế
+            const isWarning =
+              textLower.includes("bẫy") ||
+              textLower.includes("cạm bẫy") ||
+              textLower.includes("sai lầm") ||
+              textLower.includes("dễ nhầm") ||
+              textLower.includes("nguy hiểm") ||
+              textLower.includes("lỗi") ||
+              textLower.includes("[!warning]");
             if (isWarning) {
               return (
                 <aside
@@ -111,7 +153,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
                   className="my-5 p-4 rounded-xl border-l-4 border-amber-500 bg-amber-500/10 text-sm sm:text-base text-foreground flex items-start gap-3 shadow-xs"
                 >
                   <span className="p-1 rounded-md bg-amber-500/20 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5 font-bold">
-                    ⚠️
+                    <AlertTriangle className="w-4 h-4" />
                   </span>
                   <div className="space-y-1 leading-relaxed [&>p]:mb-0 font-medium">
                     {children}
@@ -120,14 +162,21 @@ export function MarkdownRenderer({ content }: { content: string }) {
               );
             }
 
+            // 3. Mẹo thực chiến & Quy tắc vàng
+            const isTip =
+              textLower.includes("mẹo") ||
+              textLower.includes("kinh nghiệm") ||
+              textLower.includes("quy tắc") ||
+              textLower.includes("nguyên tắc") ||
+              textLower.includes("[!tip]");
             if (isTip) {
               return (
                 <aside
-                  aria-label="Mẹo thực chiến"
+                  aria-label="Mẹo thực chiến và quy tắc"
                   className="my-5 p-4 rounded-xl border-l-4 border-emerald-500 bg-emerald-500/10 text-sm sm:text-base text-foreground flex items-start gap-3 shadow-xs"
                 >
                   <span className="p-1 rounded-md bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5 font-bold">
-                    💡
+                    <Lightbulb className="w-4 h-4" />
                   </span>
                   <div className="space-y-1 leading-relaxed [&>p]:mb-0 font-medium">
                     {children}
@@ -136,6 +185,13 @@ export function MarkdownRenderer({ content }: { content: string }) {
               );
             }
 
+            // 4. Tư duy phần cứng Verilog
+            const isHardware =
+              textLower.includes("tư duy phần cứng") ||
+              textLower.includes("phần cứng") ||
+              textLower.includes("verilog") ||
+              textLower.includes("reg") ||
+              textLower.includes("flip-flop");
             if (isHardware) {
               return (
                 <aside
@@ -143,7 +199,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
                   className="my-5 p-4 rounded-xl border-l-4 border-violet-500 bg-violet-500/10 text-sm sm:text-base text-foreground flex items-start gap-3 shadow-xs"
                 >
                   <span className="p-1 rounded-md bg-violet-500/20 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5 font-bold">
-                    ⚡
+                    <Zap className="w-4 h-4" />
                   </span>
                   <div className="space-y-1 leading-relaxed [&>p]:mb-0 font-medium">
                     {children}
@@ -152,6 +208,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
               );
             }
 
+            // 5. Khái niệm cốt lõi / Câu xương sống mặc định
             return (
               <aside
                 aria-label="Khái niệm cốt lõi"
@@ -166,8 +223,8 @@ export function MarkdownRenderer({ content }: { content: string }) {
           },
           table({ children }) {
             return (
-              <div className="my-6 w-full overflow-x-auto rounded-xl border border-border bg-surface shadow-xs">
-                <table className="w-full text-left border-collapse text-xs sm:text-sm">
+              <div className="my-6 w-full max-h-[500px] overflow-auto rounded-xl border border-border bg-surface shadow-xs">
+                <table className="w-full text-left border-collapse text-xs sm:text-sm font-mono">
                   {children}
                 </table>
               </div>
@@ -175,7 +232,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
           },
           thead({ children }) {
             return (
-              <thead className="bg-surface-muted/90 text-foreground border-b border-border font-semibold">
+              <thead className="sticky top-0 bg-surface-muted/95 backdrop-blur-xs text-foreground border-b border-border font-semibold shadow-xs z-10">
                 {children}
               </thead>
             );
@@ -196,7 +253,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
           },
           td({ children }) {
             return (
-              <td className="px-4 py-2.5 text-foreground/90 font-mono text-xs sm:text-sm">
+              <td className="px-4 py-2.5 text-foreground/90 font-mono text-xs sm:text-sm whitespace-nowrap">
                 {children}
               </td>
             );

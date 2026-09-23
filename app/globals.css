@@ -84,6 +84,53 @@ code {
   font-feature-settings: "tnum" 1;
 }
 
+/* Prism Syntax Highlighting Tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #cbd5e1;
+}
+
+.token.keyword,
+.token.tag {
+  color: #93c5fd;
+  font-weight: 600;
+}
+
+.token.function,
+.token.class-name {
+  color: #67e8f9;
+}
+
+.token.string,
+.token.char,
+.token.attr-value {
+  color: #86efac;
+}
+
+.token.number,
+.token.boolean,
+.token.constant {
+  color: #fde047;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+  color: #f472b6;
+}
+
+.token.variable,
+.token.property {
+  color: #e2e8f0;
+}
+
 table {
   font-feature-settings: "tnum" 1;
 }

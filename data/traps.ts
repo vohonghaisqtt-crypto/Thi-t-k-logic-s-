@@ -1,6 +1,9 @@
 import { TrapItem } from "@/lib/types";
 
 export const traps: TrapItem[] = [
+  // ==========================================
+  // MODULE 01: HỆ ĐẾM VÀ BIỂU DIỄN THÔNG TIN
+  // ==========================================
   {
     id: "trap-1",
     category: "Hệ đếm",
@@ -52,6 +55,30 @@ export const traps: TrapItem[] = [
     priority: "high",
   },
   {
+    id: "trap-34",
+    category: "Hệ đếm",
+    title: "Tràn số học (Overflow) vs Bit nhớ tràn (Carry)",
+    wrong: "Cứ thấy có bit nhớ Carry ra ngoài MSB là kết luận phép toán bị tràn số học có dấu.",
+    correct: "Carry là bit nhớ vượt độ rộng từ của số học không dấu. Tràn số học có dấu (Overflow) chỉ xảy ra khi cộng 2 số cùng dấu ra kết quả trái dấu (V = C_in_MSB ⊕ C_out_MSB). Ví dụ (+70) + (+80) = (-106) trong 8 bit là Overflow.",
+    memoryTip: "Cùng dấu cộng ra trái dấu mới là Overflow!",
+    lessonSlug: "he-dem",
+    priority: "high",
+  },
+  {
+    id: "trap-35",
+    category: "Hệ đếm",
+    title: "Phạm vi biểu diễn của n bit số bù 2",
+    wrong: "Nghĩ rằng n bit bù 2 có dải giá trị đối xứng từ -2^(n-1) đến +2^(n-1).",
+    correct: "Dải giá trị chuẩn của n bit bù 2 là từ -2^(n-1) đến +(2^(n-1) - 1). Với 8 bit là -128 đến +127. Số +128 không thể biểu diễn được bằng 8 bit bù 2 (cần ít nhất 9 bit).",
+    memoryTip: "Biên dương luôn hụt 1 do số 0 chiếm mã: -2^(n-1) đến +2^(n-1)-1.",
+    lessonSlug: "he-dem",
+    priority: "normal",
+  },
+
+  // ==========================================
+  // MODULE 02: ĐẠI SỐ BOOLE VÀ CỔNG LOGIC
+  // ==========================================
+  {
     id: "trap-6",
     category: "Đại số Boole",
     title: "Phép cộng 1 + 1 trong đại số Boole",
@@ -71,6 +98,30 @@ export const traps: TrapItem[] = [
     lessonSlug: "dai-so-boole",
     priority: "normal",
   },
+  {
+    id: "trap-36",
+    category: "Đại số Boole",
+    title: "Phủ định biểu thức DeMorgan nhiều tầng ngoặc",
+    wrong: "Đảo toàn bộ biểu thức mà không đổi toán tử theo từng tầng: ~(A·B + C) = ~A·~B + ~C.",
+    correct: "Phải phá từ toán tử chính ngoài cùng vào trong: ~( (A·B) + C ) = ~(A·B) · ~C = (~A + ~B) · ~C. Dấu '+' ngoài đổi thành '·', tích A·B đổi thành tổng ~A + ~B.",
+    memoryTip: "DeMorgan: Phủ định tổng thành tích các phủ định, làm từ ngoài vào trong.",
+    lessonSlug: "dai-so-boole",
+    priority: "high",
+  },
+  {
+    id: "trap-37",
+    category: "Đại số Boole",
+    title: "Nhầm lẫn tính vạn năng của cổng XOR/XNOR",
+    wrong: "Nghĩ rằng cổng XOR/XNOR là cổng vạn năng như NAND/NOR.",
+    correct: "Chỉ có NAND và NOR mới là cổng vạn năng (Universal Gate) có thể tạo ra NOT, AND, OR độc lập mà không cần hằng số phụ. Cổng XOR chỉ là cổng chức năng số học đặc thù.",
+    memoryTip: "Chỉ NAND và NOR là cổng vạn năng.",
+    lessonSlug: "dai-so-boole",
+    priority: "normal",
+  },
+
+  // ==========================================
+  // MODULE 03: DẠNG CHUẨN TẮC & BÌA KARNAUGH
+  // ==========================================
   {
     id: "trap-8",
     category: "Karnaugh",
@@ -122,6 +173,20 @@ export const traps: TrapItem[] = [
     priority: "normal",
   },
   {
+    id: "trap-38",
+    category: "Karnaugh",
+    title: "Đánh số chỉ số hàng/cột trong bìa K-map 4 biến",
+    wrong: "Điền chỉ số nhị phân tăng dần: 00, 01, 10, 11 cho hàng và cột.",
+    correct: "Bìa Karnaugh BẮT BUỘC sắp xếp theo mã Gray: 00, 01, 11, 10. Hàng thứ 3 là 11, hàng thứ 4 là 10 (tương tự với cột). Nếu điền sai thứ tự 10 trước 11, tính liền kề sẽ bị phá hủy và kết quả rút gọn sai hoàn toàn.",
+    memoryTip: "Mã Gray K-map: 00 - 01 - 11 - 10 (11 luôn đứng trước 10).",
+    lessonSlug: "karnaugh",
+    priority: "high",
+  },
+
+  // ==========================================
+  // MODULE 04: MẠCH LOGIC TỔ HỢP CĂN BẢN
+  // ==========================================
+  {
     id: "trap-13",
     category: "Mạch tổ hợp",
     title: "Nhầm lẫn bản chất Mạch tổ hợp và Mạch tuần tự",
@@ -162,6 +227,20 @@ export const traps: TrapItem[] = [
     priority: "high",
   },
   {
+    id: "trap-39",
+    category: "Mạch tổ hợp",
+    title: "Mở rộng Decoder bằng ngõ Enable (Ghép tầng)",
+    wrong: "Nghĩ rằng ghép hai Decoder 2→4 thành Decoder 3→8 chỉ cần nối song song 2 ngõ vào.",
+    correct: "Phải dùng biến chọn cao vị (MSB) nối tới chân Enable (E). Một IC nhận trực tiếp MSB, IC còn lại nhận qua cổng NOT (~MSB). Khi MSB=0, IC thứ nhất chạy; khi MSB=1, IC thứ hai chạy.",
+    memoryTip: "Ghép tầng Decoder: Biến cao vị điều khiển ngõ Enable.",
+    lessonSlug: "mach-to-hop",
+    priority: "normal",
+  },
+
+  // ==========================================
+  // MODULE 05: MẠCH SỐ HỌC & SO SÁNH
+  // ==========================================
+  {
     id: "trap-17",
     category: "Mạch số học",
     title: "Khác biệt giữa Half Adder và Full Adder",
@@ -181,6 +260,20 @@ export const traps: TrapItem[] = [
     lessonSlug: "mach-so-hoc",
     priority: "normal",
   },
+  {
+    id: "trap-40",
+    category: "Mạch số học",
+    title: "Thứ tự so sánh trong Magnitude Comparator đa bit",
+    wrong: "So sánh bắt đầu từ bit trọng số nhỏ nhất (LSB) lên bit cao nhất (MSB).",
+    correct: "Phần cứng so sánh số học bắt buộc phải so sánh từ MSB xuống LSB. Chỉ khi các bit trọng số cao hơn bằng nhau (A_i = B_i) thì mới xét tiếp các bit trọng số thấp hơn tiếp theo.",
+    memoryTip: "So sánh số học luôn đi từ MSB xuống LSB.",
+    lessonSlug: "mach-so-hoc",
+    priority: "normal",
+  },
+
+  // ==========================================
+  // MODULE 06: MẠCH LOGIC TUẦN TỰ & FLIP-FLOP
+  // ==========================================
   {
     id: "trap-19",
     category: "Mạch tuần tự",
@@ -222,6 +315,20 @@ export const traps: TrapItem[] = [
     priority: "high",
   },
   {
+    id: "trap-41",
+    category: "Mạch tuần tự",
+    title: "Nhầm lẫn giữa Latch (chốt) và Flip-Flop (chốt lật)",
+    wrong: "Coi Latch và Flip-Flop là tên gọi khác nhau của cùng một linh kiện.",
+    correct: "Latch nhạy theo MỨC tín hiệu (level-sensitive, tín hiệu ngõ vào thông suốt sang ngõ ra khi Enable ở mức cao). Flip-Flop nhạy theo CẠNH xung nhịp (edge-triggered, chỉ lấy mẫu dữ liệu tại thời điểm chuyển mức 0→1 hoặc 1→0 của clock).",
+    memoryTip: "Latch nhạy Mức - Flip-Flop nhạy Cạnh.",
+    lessonSlug: "mach-tuan-tu",
+    priority: "high",
+  },
+
+  // ==========================================
+  // MODULE 07: BỘ ĐẾM & THANH GHI DỊCH
+  // ==========================================
+  {
     id: "trap-23",
     category: "Mạch tuần tự",
     title: "Số Flip-Flop cần cho bộ đếm Mod-M",
@@ -231,6 +338,20 @@ export const traps: TrapItem[] = [
     lessonSlug: "counter-register",
     priority: "high",
   },
+  {
+    id: "trap-42",
+    category: "Mạch tuần tự",
+    title: "Tích lũy trễ (Ripple Delay) trong Ripple Counter",
+    wrong: "Coi bộ đếm Ripple Counter (bất đồng bộ) hoạt động ổn định ở tần số cực cao.",
+    correct: "Do ngõ ra của FF trước cấp xung clock cho FF sau, độ trễ truyền lan bị cộng dồn qua từng tầng (t_delay = n · t_pd). Ở tần số cao, các trạng thái đếm trung gian sai lệch sẽ xuất hiện gây xung nhiễu (glitch). Mạch tốc độ cao bắt buộc dùng Synchronous Counter.",
+    memoryTip: "Ripple trễ nối tiếp; Đồng bộ clock chung song song.",
+    lessonSlug: "counter-register",
+    priority: "normal",
+  },
+
+  // ==========================================
+  // MODULE 08: QUY TRÌNH HDL & VERILOG CƠ BẢN
+  // ==========================================
   {
     id: "trap-24",
     category: "Verilog HDL",
@@ -292,6 +413,30 @@ export const traps: TrapItem[] = [
     priority: "high",
   },
   {
+    id: "trap-43",
+    category: "Verilog HDL",
+    title: "Thứ tự kết nối Port khi khởi tạo module con (Instantiate)",
+    wrong: "Cho rằng Positional Port Mapping có thể đảo thứ tự tín hiệu tùy ý.",
+    correct: "Positional Port Mapping (ghép theo vị trí) phụ thuộc tuyệt đối vào thứ tự lúc khai báo module con. Nếu đảo thứ tự, mạch sẽ nối nhầm chân nghiêm trọng. Cách an toàn chuẩn công nghiệp là dùng Named Port Mapping: .port_name(signal_name).",
+    memoryTip: "Ưu tiên Named Mapping: .tên_port(tín_hiệu).",
+    lessonSlug: "verilog-co-ban",
+    priority: "high",
+  },
+  {
+    id: "trap-44",
+    category: "Verilog HDL",
+    title: "Khai báo bus vector [MSB:LSB] vs [LSB:MSB]",
+    wrong: "Khai báo lẫn lộn wire [7:0] A và wire [0:7] B trong cùng một thiết kế.",
+    correct: "Quy ước chuẩn trong toàn bộ giáo trình là [MSB:LSB] (ví dụ [7:0] với bit 7 là trọng số cao nhất). Nếu khai báo [0:7], bit 0 lại là MSB, gây đảo lộn toàn bộ phép toán số học và ghép vector.",
+    memoryTip: "Luôn dùng [width-1 : 0] từ trái sang phải.",
+    lessonSlug: "verilog-co-ban",
+    priority: "normal",
+  },
+
+  // ==========================================
+  // MODULE 09: MÔ TẢ HÀNH VI (BEHAVIORAL)
+  // ==========================================
+  {
     id: "trap-30",
     category: "Verilog HDL",
     title: "Blocking (=) vs Non-blocking (<=)",
@@ -322,12 +467,90 @@ export const traps: TrapItem[] = [
     priority: "high",
   },
   {
+    id: "trap-45",
+    category: "Verilog HDL",
+    title: "Thiếu tín hiệu trong Sensitivity List của khối tổ hợp",
+    wrong: "Khai báo thủ công always @(A or B) khi biểu thức bên trong đọc cả biến C.",
+    correct: "Nếu thiếu C trong danh sách nhạy, khi C thay đổi, khối always sẽ không được kích hoạt để tính toán lại ngõ ra, gây sai lệch nghiêm trọng giữa mô phỏng và phần cứng. Chuẩn Verilog hiện đại yêu cầu dùng always @(*) để tự động nhận diện tất cả ngõ vào.",
+    memoryTip: "Luôn dùng always @(*) cho logic tổ hợp.",
+    lessonSlug: "verilog-behavioral",
+    priority: "high",
+  },
+  {
+    id: "trap-46",
+    category: "Verilog HDL",
+    title: "Sự khác biệt giữa casez và casex",
+    wrong: "Coi casez và casex hoàn toàn tương đương nhau.",
+    correct: "casez xem các bit 'z' hoặc '?' là don't care (bỏ qua khi so sánh). casex xem cả 'x' VÀ 'z' là don't care, điều này có thể vô tình che giấu lỗi khởi tạo chưa xác định (x) trong mô phỏng. Do đó tài liệu khuyến nghị dùng casez với ký tự '?'.",
+    memoryTip: "Ưu tiên casez với '?' thay vì casex.",
+    lessonSlug: "verilog-behavioral",
+    priority: "normal",
+  },
+
+  // ==========================================
+  // MODULE 10: MÁY TRẠNG THÁI HỮU HẠN (FSM)
+  // ==========================================
+  {
+    id: "trap-47",
+    category: "FSM",
+    title: "Nhầm lẫn giữa Current State và Next State trong FSM",
+    wrong: "Gán trực tiếp current_state trong khối tính toán tổ hợp hoặc đọc next_state làm ngõ ra.",
+    correct: "FSM chuẩn 3 khối: 1) Next-state Logic (tổ hợp) tính toán trạng thái tương lai next_state; 2) State Register (tuần tự theo clock) chốt current_state <= next_state; 3) Output Logic phát tín hiệu dựa trên current_state.",
+    memoryTip: "Next State tính bằng tổ hợp, Current State lưu trong Flip-Flop.",
+    lessonSlug: "fsm",
+    priority: "high",
+  },
+  {
+    id: "trap-48",
+    category: "FSM",
+    title: "Xung gai (Glitch) ở ngõ ra máy trạng thái Mealy",
+    wrong: "Cho rằng ngõ ra của Mealy Machine an toàn tuyệt đối trước nhiễu ngõ vào như Moore Machine.",
+    correct: "Trong Mealy, ngõ ra phụ thuộc trực tiếp vào cả State và Input (Y = f(State, Input)). Bất kỳ xung gai (glitch) nào ở ngõ vào cũng sẽ lan truyền thẳng ra ngõ ra ngay lập tức. Nếu cần ngõ ra sạch nhiễu đồng bộ hoàn toàn, nên chọn Moore hoặc chốt ngõ ra Mealy bằng Flip-Flop.",
+    memoryTip: "Mealy phản ứng nhanh nhưng nhạy cảm với nhiễu ngõ vào.",
+    lessonSlug: "fsm",
+    priority: "high",
+  },
+
+  // ==========================================
+  // MODULE 11: KIỂM CHỨNG MÔ PHỎNG ISE XILINX
+  // ==========================================
+  {
     id: "trap-33",
     category: "Mô phỏng ISE",
     title: "Nhầm lẫn giữa Design Module và Testbench",
     wrong: "Viết mã mạch phần cứng và mã tạo xung clock kích thích chung một file module.",
     correct: "Design Module là mạch phần cứng cần thiết kế (có input/output kết nối chân). Testbench là một module không có ngõ vào/ra (top-level wrapper) dùng để khởi tạo mạch thiết kế, cấp xung clock và cấp tín hiệu kiểm thử.",
     memoryTip: "Design Module có port - Testbench không có port.",
+    lessonSlug: "mo-phong-ise",
+    priority: "high",
+  },
+  {
+    id: "trap-49",
+    category: "Mô phỏng ISE",
+    title: "Xung đột tên module Testbench trùng với DUT",
+    wrong: "Đặt tên module trong file Testbench giống hệt tên module của mạch cần thử.",
+    correct: "Testbench là module bao bên ngoài DUT, bắt buộc phải có tên định danh riêng biệt (thường thêm hậu tố _tb, ví dụ decoder_tb). Nếu đặt trùng tên, ISE Xilinx sẽ báo lỗi xung đột định danh nhiều lần.",
+    memoryTip: "Thêm hậu tố _tb cho file và module Testbench.",
+    lessonSlug: "mo-phong-ise",
+    priority: "normal",
+  },
+  {
+    id: "trap-50",
+    category: "Mô phỏng ISE",
+    title: "Check Syntax thành công không đồng nghĩa mạch đúng",
+    wrong: "Chỉ chạy Check Syntax trong ISE rồi kết luận thiết kế đã hoàn toàn chính xác.",
+    correct: "Check Syntax chỉ xác nhận mã không vi phạm ngữ pháp Verilog. Mạch vẫn có thể sai hoàn toàn về chức năng logic (ngược bảng trạng thái, latch ngoài ý muốn). Bắt buộc phải chạy Behavioral Simulation và đối chiếu từng chu kỳ waveform.",
+    memoryTip: "Syntax chỉ là ngữ pháp, Waveform mới là chân lý mạch.",
+    lessonSlug: "mo-phong-ise",
+    priority: "high",
+  },
+  {
+    id: "trap-51",
+    category: "Mô phỏng ISE",
+    title: "Quên khởi tạo giá trị ban đầu trong Testbench",
+    wrong: "Không gán giá trị khởi tạo ở t=0 cho các ngõ vào của DUT trong khối initial.",
+    correct: "Nếu không gán giá trị ban đầu, các tín hiệu reg trong Testbench sẽ mặc định mang giá trị 'x' (Unknown). Khi đó toàn bộ ngõ ra của mạch trên waveform sẽ hiển thị dải màu đỏ không xác định.",
+    memoryTip: "Luôn khởi tạo giá trị ngõ vào tại t=0 trong initial.",
     lessonSlug: "mo-phong-ise",
     priority: "high",
   },

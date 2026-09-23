@@ -25,7 +25,7 @@ export default function ReviewPage() {
               Ôn tập Flashcards 3D
             </h1>
             <p className="text-sm text-muted-foreground">
-              Kho 38 thẻ ghi nhớ cốt lõi: Công thức Boole, kiến trúc MUX/FSM, bẫy HDL và vi mạch số.
+              Kho {flashcards.length} thẻ ghi nhớ cốt lõi: Công thức Boole, kiến trúc MUX/FSM, bẫy HDL và vi mạch số.
             </p>
           </div>
 

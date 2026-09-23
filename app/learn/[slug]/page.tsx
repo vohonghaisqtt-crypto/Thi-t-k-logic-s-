@@ -10,6 +10,8 @@ import { MarkdownRenderer } from "@/lib/markdown";
 import { ReadingProgressBar } from "@/components/learning/ReadingProgressBar";
 import { LessonExecutiveSummary } from "@/components/learning/LessonExecutiveSummary";
 import { LessonActionHub } from "@/components/learning/LessonActionHub";
+import { MobileTableOfContents } from "@/components/learning/MobileTableOfContents";
+import { BackToTopButton } from "@/components/learning/BackToTopButton";
 import { Clock, Tag, GitPullRequest, ArrowLeft } from "lucide-react";
 
 
@@ -140,7 +142,15 @@ export default function LessonPage({ params }: PageProps) {
           lessonSlug={lesson.slug}
         />
       </div>
+
+      {/* Drawer Mục Lục Di Động (Màn hình < 1280px) */}
+      <MobileTableOfContents
+        headings={lesson.headings}
+        lessonSlug={lesson.slug}
+      />
+
+      {/* Nút Cuộn Lên Đầu Trang */}
+      <BackToTopButton />
     </>
   );
-
 }

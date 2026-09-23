@@ -6,8 +6,11 @@ export type MapNode = {
   category: string;
   lessonSlug: string;
   shortDef: string;
-  prerequisites: string[]; // array of node IDs
-  subNodes?: string[];     // array of sub-node IDs
+  keyFormulaOrRule?: string; // Quy tắc vàng / Công thức then chốt
+  objectives?: string[];     // Chuẩn đầu ra cần đạt
+  estimatedMinutes?: number; // Thời lượng ước tính (phút)
+  prerequisites: string[];   // array of node IDs
+  subNodes?: string[];       // array of sub-node IDs
   parentId?: string;
 };
 
@@ -22,7 +25,9 @@ export const mainSpineOrder = [
 ];
 
 export const knowledgeMapNodes: Record<string, MapNode> = {
-  // --- 7 KHỐI XƯƠNG SỐNG CHÍNH ---
+  // ==========================================
+  // 7 KHỐI XƯƠNG SỐNG CHÍNH (MAIN SPINE NODES)
+  // ==========================================
   "stage-he-dem": {
     id: "stage-he-dem",
     label: "Hệ đếm & Biểu diễn số",
@@ -31,6 +36,13 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Nền tảng biểu diễn thông tin",
     lessonSlug: "he-dem",
     shortDef: "Hệ nhị phân, thập lục phân, mã Gray, số âm bù 1 và bù 2. Mấu chốt để hiểu phép cộng trừ và biểu diễn bit trong phần cứng.",
+    keyFormulaOrRule: "Bù 2 = Bù 1 + 1 (hoặc giữ nguyên các bit từ LSB đến bit 1 đầu tiên, đảo toàn bộ bit phía trước).",
+    objectives: [
+      "Chuyển đổi thành thạo giữa các cơ số 2, 8, 10, 16.",
+      "Phân biệt bản chất mã BCD, Excess-3 và mã Gray chống xung nhiễu.",
+      "Biểu diễn số âm bù 1 và bù 2, thực hiện phép trừ bằng cộng bù 2 và phát hiện tràn số (Overflow).",
+    ],
+    estimatedMinutes: 90,
     prerequisites: [],
     subNodes: ["sub-co-so", "sub-bu-2", "sub-gray-bcd"],
   },
@@ -42,6 +54,13 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Nền tảng biểu diễn thông tin",
     lessonSlug: "dai-so-boole",
     shortDef: "Các định luật Boole, định luật DeMorgan và 7 cổng logic cơ bản. Ngôn ngữ toán học để mô tả và tối ưu mọi mạch điện tử số.",
+    keyFormulaOrRule: "DeMorgan: (A · B)' = A' + B' và (A + B)' = A' · B'. Cổng NAND và NOR là cổng logic vạn năng.",
+    objectives: [
+      "Ghi nhớ bảng chân trị và công thức của 7 cổng logic cơ bản (AND, OR, NOT, NAND, NOR, XOR, XNOR).",
+      "Vận dụng định luật DeMorgan và tiên đề Boole để tối giản biểu thức logic.",
+      "Hiểu và hiện thực hóa mọi hàm logic chỉ với cổng vạn năng NAND hoặc NOR.",
+    ],
+    estimatedMinutes: 90,
     prerequisites: ["stage-he-dem"],
     subNodes: ["sub-cong-logic", "sub-karnaugh", "sub-sop-pos"],
   },
@@ -53,6 +72,13 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Thiết kế mạch số",
     lessonSlug: "mach-to-hop",
     shortDef: "Mạch không có bộ nhớ (Y = f(X)). Bao gồm mạch ghép kênh MUX, giải mã Decoder, bộ cộng Half/Full Adder và bộ so sánh.",
+    keyFormulaOrRule: "Ngõ ra chỉ phụ thuộc tức thời vào ngõ vào hiện tại: Y = f(X). Không có trạng thái lưu trữ nội tại.",
+    objectives: [
+      "Nắm vững quy trình 5 bước thiết kế mạch logic tổ hợp từ bảng chân trị đến sơ đồ cổng.",
+      "Thiết kế và ứng dụng IC Encoder, Priority Encoder, Decoder, LED 7 đoạn và MUX/DEMUX.",
+      "Phân biệt rõ ràng hoạt động ngõ vào/ngõ ra tích cực mức cao (Active-High) và mức thấp (Active-Low).",
+    ],
+    estimatedMinutes: 120,
     prerequisites: ["stage-boolean"],
     subNodes: ["sub-encoder-decoder", "sub-mux-demux", "sub-adder-sub", "sub-comparator", "sub-parity"],
   },
@@ -64,6 +90,13 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Thiết kế mạch số",
     lessonSlug: "mach-tuan-tu",
     shortDef: "Mạch có bộ nhớ trạng thái theo xung nhịp clock. Xây dựng từ các phần tử Flip-Flop RS, JK, D, T, thanh ghi và bộ đếm.",
+    keyFormulaOrRule: "Ngõ ra phụ thuộc cả ngõ vào hiện tại và trạng thái quá khứ: Y = f(X, Q). Cần phần tử nhớ đồng bộ theo Clock.",
+    objectives: [
+      "Phân biệt rạch ròi giữa Latch (nhạy theo mức) và Flip-Flop (nhạy theo sườn xung clock).",
+      "Nắm vững phương trình trạng thái và bảng kích thích (Excitation Table) của Flip-Flop RS, JK, D, T.",
+      "Tính số lượng Flip-Flop và thiết kế bộ đếm Mod-M, thanh ghi dịch đồng bộ.",
+    ],
+    estimatedMinutes: 120,
     prerequisites: ["stage-to-hop"],
     subNodes: ["sub-flip-flop", "sub-counter", "sub-register"],
   },
@@ -75,6 +108,13 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Chuyển mạch số thành HDL",
     lessonSlug: "verilog-co-ban",
     shortDef: "Ngôn ngữ mô tả phần cứng tiêu chuẩn: cấu trúc module, wire vs reg, gán liên tục assign, và khối thủ tục always.",
+    keyFormulaOrRule: "Quy tắc vàng: Mạch tổ hợp dùng '=' trong always @(*); Mạch tuần tự dùng '<=' trong always @(posedge clk).",
+    objectives: [
+      "Khai báo chuẩn xác module, cổng input, output vector Little-Endian [MSB:LSB].",
+      "Phân biệt rạch ròi bản chất phần cứng giữa wire (nối dây) và reg (biến trong khối always).",
+      "Viết code mô tả hành vi chuẩn xác, ngăn ngừa triệt để lỗi tạo chốt ngoài ý muốn (Inadvertent Latch).",
+    ],
+    estimatedMinutes: 90,
     prerequisites: ["stage-tuan-tu", "stage-to-hop"],
     subNodes: ["sub-verilog-syntax", "sub-behavioral"],
   },
@@ -86,6 +126,13 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Chuyển mạch số thành HDL",
     lessonSlug: "fsm",
     shortDef: "Mô hình toán học điều khiển hệ thống số phức tạp: mô hình Moore vs Mealy và phong cách viết code 3 always block chuẩn.",
+    keyFormulaOrRule: "Khung 3 always blocks: Block 1 State Register (<=), Block 2 Next-state Logic (=), Block 3 Output Logic (=).",
+    objectives: [
+      "Phân biệt sơ đồ khối và đặc tính trễ của máy trạng thái Moore và Mealy (Glitch ở ngõ ra Mealy).",
+      "Hiện thực hóa khung code FSM 3 khối always chuẩn công nghiệp, dễ bảo trì và tổng hợp.",
+      "Định nghĩa mã trạng thái bằng localparam (Binary / One-hot encoding) và xử lý trạng thái mặc định an toàn.",
+    ],
+    estimatedMinutes: 100,
     prerequisites: ["stage-verilog"],
     subNodes: ["sub-moore-mealy"],
   },
@@ -97,11 +144,20 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Kiểm chứng mô phỏng",
     lessonSlug: "mo-phong-ise",
     shortDef: "Quy trình tạo testbench kích thích, chạy mô phỏng ISim trên ISE Xilinx 14.7 và đọc giản đồ sóng waveform đối chiếu lý thuyết.",
+    keyFormulaOrRule: "DUT (Device Under Test) đặt trong Testbench port list rỗng; reg nối input DUT, wire nối output DUT; initial sinh stimulus.",
+    objectives: [
+      "Phân biệt rạch ròi giữa Design Module (mạch phần cứng) và Testbench (môi trường kiểm thử có port list rỗng).",
+      "Tạo khối initial sinh xung clock và vector kích thích kiểm thử theo thời gian.",
+      "Đọc giản đồ xung waveform đối chiếu với bảng chân trị để xác nhận mạch phần cứng chạy đúng.",
+    ],
+    estimatedMinutes: 80,
     prerequisites: ["stage-fsm"],
     subNodes: ["sub-testbench"],
   },
 
-  // --- CÁC NHÁNH CHI TIẾT (SUB-NODES) ---
+  // ==========================================
+  // CÁC NHÁNH CHI TIẾT (18 SUB-NODES)
+  // ==========================================
   "sub-co-so": {
     id: "sub-co-so",
     label: "Chuyển đổi Cơ số",
@@ -111,6 +167,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Hệ đếm",
     lessonSlug: "he-dem",
     shortDef: "Nguyên chia - Lẻ nhân. Chuyển đổi giữa nhị phân, bát phân (nhóm 3 bit), thập phân và thập lục phân (nhóm 4 bit).",
+    keyFormulaOrRule: "Nguyên chia cơ số mới lấy phần dư ngược lại; Lẻ nhân cơ số mới lấy phần nguyên xuôi chiều.",
+    objectives: [
+      "Chuyển đổi nhị phân sang Hex bằng cách nhóm 4 bit từ LSB.",
+      "Chuyển đổi nhị phân sang Octal bằng cách nhóm 3 bit từ LSB.",
+    ],
+    estimatedMinutes: 30,
     prerequisites: ["stage-he-dem"],
   },
   "sub-bu-2": {
@@ -122,6 +184,13 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Hệ đếm",
     lessonSlug: "he-dem",
     shortDef: "Bù 2 = Bù 1 + 1. Phương pháp biểu diễn số âm chuẩn trong vi xử lý, biến phép trừ thành phép cộng.",
+    keyFormulaOrRule: "Dải biểu diễn n-bit bù 2: [-2^(n-1), 2^(n-1) - 1]. Tràn số Overflow = C_in(MSB) ⊕ C_out(MSB).",
+    objectives: [
+      "Biểu diễn số âm bằng bù 2.",
+      "Thực hiện phép trừ A - B = A + (Bù 2 của B).",
+      "Phát hiện tràn số số học (Overflow) trong mạch cộng trừ.",
+    ],
+    estimatedMinutes: 35,
     prerequisites: ["stage-he-dem"],
   },
   "sub-gray-bcd": {
@@ -133,6 +202,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Hệ đếm",
     lessonSlug: "he-dem",
     shortDef: "Mã Gray chỉ đổi 1 bit giữa 2 từ mã liên tiếp (chống xung nhiễu). BCD mã hóa riêng từng chữ số thập phân bằng 4 bit.",
+    keyFormulaOrRule: "Mã Gray chỉ thay đổi duy nhất 1 bit giữa 2 từ mã liên tiếp; BCD mã hóa riêng từng chữ số 0-9 bằng 4 bit.",
+    objectives: [
+      "Chuyển đổi qua lại giữa mã Nhị phân và mã Gray.",
+      "Nhận diện từ mã BCD hợp lệ và hiệu chỉnh cộng 6 (0110₂) khi tổng vượt quá 9.",
+    ],
+    estimatedMinutes: 25,
     prerequisites: ["stage-he-dem"],
   },
 
@@ -145,6 +220,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Đại số Boole",
     lessonSlug: "dai-so-boole",
     shortDef: "AND, OR, NOT, XOR (số bit 1 lẻ ra 1), XNOR (số bit 1 chẵn ra 1) và tính vạn năng của cổng NAND/NOR.",
+    keyFormulaOrRule: "XOR = 1 khi số bit 1 là lẻ (A ⊕ B = A'B + AB'); XNOR = 1 khi số bit 1 là chẵn hoặc 2 ngõ vào giống nhau.",
+    objectives: [
+      "Vẽ đúng ký hiệu và bảng chân trị của 7 cổng logic cơ bản.",
+      "Chứng minh tính vạn năng của cổng NAND và NOR trong việc tạo ra mọi cổng khác.",
+    ],
+    estimatedMinutes: 30,
     prerequisites: ["stage-boolean"],
   },
   "sub-karnaugh": {
@@ -156,6 +237,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Karnaugh",
     lessonSlug: "karnaugh",
     shortDef: "Gom nhóm 2^k ô kề nhau theo mã Gray để triệt tiêu biến; tận dụng mép bàn cờ và ô tùy định don't care (X).",
+    keyFormulaOrRule: "Gom nhóm 2^k ô kề nhau theo mã Gray (00-01-11-10) để triệt tiêu k biến; nhóm càng to hàm càng tối giản.",
+    objectives: [
+      "Điền đúng bảng chân trị vào bìa K-map 3 và 4 biến.",
+      "Gom nhóm 2^k ô theo mép bàn cờ để rút gọn hàm tối thiểu.",
+    ],
+    estimatedMinutes: 45,
     prerequisites: ["stage-boolean"],
   },
   "sub-sop-pos": {
@@ -167,6 +254,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Karnaugh",
     lessonSlug: "karnaugh",
     shortDef: "Dạng tổng các tích (SOP - Minterm Σm) gom ô 1, và dạng tích các tổng (POS - Maxterm ΠM) gom ô 0.",
+    keyFormulaOrRule: "SOP = Tổng các Minterm (gom ô 1, Σm); POS = Tích các Maxterm (gom ô 0, ΠM). Tận dụng ô Don't care (X).",
+    objectives: [
+      "Chuyển đổi tương đương giữa dạng chuẩn tắc SOP và POS.",
+      "Sử dụng Don't care (X) để mở rộng kích thước nhóm gom nhằm tối giản số cổng logic.",
+    ],
+    estimatedMinutes: 30,
     prerequisites: ["stage-boolean"],
   },
 
@@ -179,6 +272,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Mạch tổ hợp",
     lessonSlug: "mach-to-hop",
     shortDef: "Encoder (2^n vào → n ra), Priority Encoder xử lý ưu tiên nhiều ngõ vào, Decoder (n vào → 2^n ra, LED 7 đoạn).",
+    keyFormulaOrRule: "Priority Encoder ưu tiên ngõ vào có chỉ số cao nhất; Decoder n sang 2^n ngõ ra, mở rộng bằng chân Enable.",
+    objectives: [
+      "Giải mã LED 7 đoạn Anode chung / Cathode chung.",
+      "Ghép nối tầng nhiều IC Decoder qua chân Enable tích cực mức thấp.",
+    ],
+    estimatedMinutes: 35,
     prerequisites: ["stage-to-hop"],
   },
   "sub-mux-demux": {
@@ -190,6 +289,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Mạch tổ hợp",
     lessonSlug: "mach-to-hop",
     shortDef: "MUX chọn 1 trong 2^n đường dữ liệu đưa ra 1 output. DEMUX phân 1 đường dữ liệu ra 2^n output theo bit chọn select.",
+    keyFormulaOrRule: "MUX 2:1: Y = S'·I0 + S·I1. Hiện thực hóa mọi hàm logic n biến bằng MUX 2^(n-1) ngõ vào.",
+    objectives: [
+      "Phân tích và ghép nối MUX đa ngõ vào.",
+      "Hiện thực hàm Boole bất kỳ bằng MUX không cần cổng logic rời.",
+    ],
+    estimatedMinutes: 35,
     prerequisites: ["stage-to-hop"],
   },
   "sub-adder-sub": {
@@ -201,6 +306,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Mạch số học",
     lessonSlug: "mach-so-hoc",
     shortDef: "Half Adder (A ⊕ B, AB), Full Adder có thêm ngõ vào nhớ Cin để ghép chuỗi cộng nhiều bit (S = A ⊕ B ⊕ Cin).",
+    keyFormulaOrRule: "Full Adder: S = A ⊕ B ⊕ Cin, Cout = AB + Cin(A ⊕ B). Ghép chuỗi tạo Ripple Carry Adder n-bit.",
+    objectives: [
+      "Phân biệt Half Adder và Full Adder.",
+      "Thực hiện phép trừ bù 2 thông qua bộ cộng ghép cổng XOR đảo Cin.",
+    ],
+    estimatedMinutes: 35,
     prerequisites: ["stage-to-hop"],
   },
   "sub-comparator": {
@@ -212,6 +323,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Mạch số học",
     lessonSlug: "mach-so-hoc",
     shortDef: "So sánh 2 số nhị phân A và B (A > B, A < B, A = B) tuần tự từ MSB xuống LSB.",
+    keyFormulaOrRule: "So sánh 2 số nhị phân A và B bắt đầu từ bit có trọng số cao nhất (MSB) tuần tự xuống LSB.",
+    objectives: [
+      "Thiết kế mạch so sánh A > B, A < B, A = B.",
+      "Ghép tầng các bộ so sánh 4-bit thành bộ so sánh 8-bit/16-bit.",
+    ],
+    estimatedMinutes: 25,
     prerequisites: ["stage-to-hop"],
   },
   "sub-parity": {
@@ -223,6 +340,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Mạch số học",
     lessonSlug: "mach-so-hoc",
     shortDef: "Tạo bit chẵn/lẻ bằng chuỗi cổng XOR để phát hiện lỗi truyền dữ liệu 1 bit.",
+    keyFormulaOrRule: "Parity Generator: Chuỗi cổng XOR liên tiếp; ngõ ra = 1 khi số lượng bit 1 là số lẻ.",
+    objectives: [
+      "Tạo bit chẵn/lẻ (Even/Odd Parity).",
+      "Phát hiện lỗi đơn bit trong quá trình truyền dữ liệu.",
+    ],
+    estimatedMinutes: 20,
     prerequisites: ["stage-to-hop"],
   },
 
@@ -235,6 +358,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Mạch tuần tự",
     lessonSlug: "mach-tuan-tu",
     shortDef: "Phần tử nhớ 1 bit: RS (trạng thái cấm), JK (toggle khi J=K=1), D (Q+ = D), T (đảo khi T=1), Bảng kích thích và ngõ PRE/CLR.",
+    keyFormulaOrRule: "D-FF: Q^+ = D; JK-FF: Q^+ = J·Q' + K'·Q (Toggle khi J=K=1); Ngõ PRE/CLR bất đồng bộ tác động tức thời.",
+    objectives: [
+      "Phân tích hoạt động Flip-Flop theo xung clock sườn lên/sườn xuống.",
+      "Lập và sử dụng bảng kích thích để tổng hợp mạch tuần tự.",
+    ],
+    estimatedMinutes: 45,
     prerequisites: ["stage-tuan-tu"],
   },
   "sub-counter": {
@@ -246,6 +375,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Bộ đếm",
     lessonSlug: "counter-register",
     shortDef: "Số FF thỏa 2^(n-1) < M ≤ 2^n. Phân biệt Ripple Counter (clock lan truyền có trễ) và Synchronous Counter (chung clock).",
+    keyFormulaOrRule: "Số Flip-Flop n thỏa mãn: 2^(n-1) < M ≤ 2^n. Synchronous Counter dùng chung clock loại bỏ trễ tích lũy.",
+    objectives: [
+      "Thiết kế bộ đếm đồng bộ Mod-M bất kỳ.",
+      "Phân tích trễ truyền lan của Ripple Counter và tần số làm việc cực đại.",
+    ],
+    estimatedMinutes: 45,
     prerequisites: ["sub-flip-flop"],
   },
   "sub-register": {
@@ -257,6 +392,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Thanh ghi",
     lessonSlug: "counter-register",
     shortDef: "Lưu trữ và dịch dữ liệu: SISO (nối tiếp/nối tiếp), SIPO (nối tiếp/song song), PISO, PIPO.",
+    keyFormulaOrRule: "Thanh ghi dịch 4 kiểu: SISO, SIPO, PISO, PIPO. Dùng để chuyển đổi và lưu tạm dữ liệu nhị phân.",
+    objectives: [
+      "Phân biệt 4 kiểu nạp/xuất dữ liệu của thanh ghi dịch.",
+      "Ứng dụng thanh ghi dịch trong bộ đếm vòng (Ring Counter) và Johnson Counter.",
+    ],
+    estimatedMinutes: 30,
     prerequisites: ["sub-flip-flop"],
   },
 
@@ -269,6 +410,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Verilog HDL",
     lessonSlug: "verilog-co-ban",
     shortDef: "Module I/O ports, wire (nối dây) vs reg (biến thủ tục), phép gán liên tục assign, định dạng hằng số <size>'<base><value>.",
+    keyFormulaOrRule: "wire dùng cho ngõ ra assign continuous; reg dùng cho biến được gán giá trị bên trong always block. Định dạng: <size>'<base><value>.",
+    objectives: [
+      "Khai báo module, port, wire, reg chuẩn cú pháp.",
+      "Sử dụng thành thạo toán tử rút gọn reduction (&A, |A, ^A) và ghép vector {A, B}.",
+    ],
+    estimatedMinutes: 40,
     prerequisites: ["stage-verilog"],
   },
   "sub-behavioral": {
@@ -280,6 +427,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Verilog HDL",
     lessonSlug: "verilog-behavioral",
     shortDef: "Quy tắc vàng: always @(*) tổ hợp dùng '=', always @(posedge clk) tuần tự dùng '<='. Lệnh if/case và tránh inadvertent latch.",
+    keyFormulaOrRule: "Blocking (=) gán tuần tự tức thì (dùng cho tổ hợp); Non-blocking (<=) cập nhật đồng loạt tại kết thúc time-step (dùng cho tuần tự).",
+    objectives: [
+      "Sử dụng đúng blocking và non-blocking assignments.",
+      "Viết câu lệnh case/casez có default đầy đủ để tránh suy diễn chốt nhớ ngoài ý muốn.",
+    ],
+    estimatedMinutes: 50,
     prerequisites: ["sub-verilog-syntax"],
   },
 
@@ -292,6 +445,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "FSM",
     lessonSlug: "fsm",
     shortDef: "Moore (ngõ ra theo State), Mealy (ngõ ra theo State + Input). Cấu trúc 3 khối always: State Register, Next-State, Output Logic.",
+    keyFormulaOrRule: "Moore ngõ ra đồng bộ trễ 1 chu kỳ clock, an toàn không glitch; Mealy đáp ứng tức thì theo ngõ vào nhưng tiềm ẩn glitch.",
+    objectives: [
+      "Vẽ đồ hình trạng thái (State Diagram) từ yêu cầu bài toán.",
+      "Viết code Verilog FSM 3 khối phát hiện chuỗi bít hoặc điều khiển đèn giao thông.",
+    ],
+    estimatedMinutes: 60,
     prerequisites: ["stage-fsm"],
   },
   "sub-testbench": {
@@ -303,6 +462,12 @@ export const knowledgeMapNodes: Record<string, MapNode> = {
     category: "Mô phỏng ISE",
     lessonSlug: "mo-phong-ise",
     shortDef: "Module test không có I/O port, khởi tạo DUT, sinh xung clk trong always, tạo stimulus trong initial và đọc waveform đối chiếu.",
+    keyFormulaOrRule: "`timescale 1ns/1ps; always #10 clk = ~clk (chu kỳ 20ns = 50MHz); initial begin ... #100 $finish; end`",
+    objectives: [
+      "Tạo file Verilog Test Fixture trong Xilinx ISE.",
+      "Đối chiếu giản đồ xung ISim với bảng chân trị để nghiệm thu mạch.",
+    ],
+    estimatedMinutes: 50,
     prerequisites: ["stage-mo-phong"],
   },
 };

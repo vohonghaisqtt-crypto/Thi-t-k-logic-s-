@@ -49,7 +49,7 @@ export function Header({ onOpenMobileMenu }: { onOpenMobileMenu: () => void }) {
         <button
           type="button"
           onClick={() => {
-            window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }));
+            window.dispatchEvent(new CustomEvent("open-search-modal"));
           }}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-surface-muted text-xs text-muted-foreground hover:text-foreground hover:border-border/80 transition-colors"
           title="Tìm kiếm nhanh (Ctrl + K)"

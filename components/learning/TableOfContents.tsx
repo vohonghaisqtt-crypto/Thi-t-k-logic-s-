@@ -39,6 +39,17 @@ export function TableOfContents({ headings, lessonSlug }: TableOfContentsProps) 
     return () => observer.disconnect();
   }, [headings]);
 
+  const activeItemRef = React.useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (activeItemRef.current) {
+      activeItemRef.current.scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
+      });
+    }
+  }, [activeId]);
+
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -98,6 +109,7 @@ export function TableOfContents({ headings, lessonSlug }: TableOfContentsProps) 
                 return (
                   <button
                     key={h.id}
+                    ref={isActive ? activeItemRef : null}
                     onClick={() => handleScrollTo(h.id)}
                     className={cn(
                       "w-full text-left block py-1 text-xs transition-colors rounded-md truncate",

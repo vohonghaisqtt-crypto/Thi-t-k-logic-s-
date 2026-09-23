@@ -44,6 +44,11 @@ export default function LearnIndexPage() {
     return cats;
   }, []);
 
+  const totalEstimatedHours = useMemo(() => {
+    const totalMinutes = curriculum.reduce((acc, m) => acc + m.estimatedMinutes, 0);
+    return Math.round(totalMinutes / 60);
+  }, []);
+
   // Filter lessons
   const filteredCurriculum = useMemo(() => {
     if (activeFilter === "completed") {
@@ -62,7 +67,7 @@ export default function LearnIndexPage() {
         <div className="flex items-center gap-2">
           <span className="px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary inline-flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5" />
-            Lộ trình học tập chuẩn 18 - 20 giờ
+            Lộ trình học tập chuẩn ~{totalEstimatedHours} giờ
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
@@ -91,7 +96,7 @@ export default function LearnIndexPage() {
 
           <div className="flex items-center gap-2 text-xs text-muted-foreground bg-surface-muted px-3 py-1.5 rounded-xl border border-border">
             <Clock className="w-4 h-4 text-primary" />
-            <span>Tổng thời lượng: <strong className="text-foreground font-semibold">18 giờ học</strong></span>
+            <span>Tổng thời lượng: <strong className="text-foreground font-semibold">~{totalEstimatedHours} giờ học</strong></span>
           </div>
         </div>
 
